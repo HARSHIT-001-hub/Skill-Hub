@@ -17,7 +17,8 @@ The **Skill Exchange Hub for Seniors** is a web-based platform designed to enabl
 
 - **HTML** – Structure of web pages.  
 - **CSS** – Styling for a user-friendly and accessible interface.  
-- **JavaScript** – Dynamic functionalities like profile management, matching system, and interactive features.  
+- **JavaScript** – Dynamic functionalities like profile management, matching system, and interactive features. \
+- **Python** - This use to Deploy the Project and Get a Port Number 
 
 ---
 
@@ -25,8 +26,8 @@ The **Skill Exchange Hub for Seniors** is a web-based platform designed to enabl
 
 How to Start This Project 
 
--> open index.html  # Mac
--> start index.html # Windows
+- open index.html  # Mac
+- start index.html # Windows
 
 
 How It Works
