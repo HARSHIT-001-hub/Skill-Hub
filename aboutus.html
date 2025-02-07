@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Hub - About Us</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f0f4f8, #d9e4f2);
+            color: #333;
+            line-height: 1.8;
+        }
+
+        header {
+            background: linear-gradient(135deg, #610ea5, #8a2be2);
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        header .name a {
+            text-decoration: none;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 2em;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ffd700;
+        }
+
+        main {
+            padding: 40px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #610ea5;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #8a2be2;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #444;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: justify;
+            line-height: 1.8;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            animation: slideUp 1.5s ease-in-out;
+        }
+
+        p::after {
+            content: '';
+            display: block;
+            margin: 30px auto;
+            width: 80px;
+            height: 4px;
+            background-color: #3498db;
+        }
+
+        .vision-mission {
+            background: linear-gradient(135deg, #ffffff, #f9f9f9);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin: 40px auto;
+            max-width: 800px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .vision-mission h3 {
+            font-size: 1.8rem;
+            color: #610ea5;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .community-images {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+
+        .community-images img {
+            width: 300px;
+            height: 200px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .community-images img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        footer {
+            text-align: center;
+            background: linear-gradient(135deg, #333, #444);
+            color: white;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            p {
+                font-size: 1rem;
+                padding: 15px;
+            }
+
+            .community-images img {
+                width: 100%;
+                height: auto;
+            }
+
+            .vision-mission {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="name"><a href="index.html">Skill Hub</a></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="signin.html">Log in</a></li>
+                <li><a href="#">Community</a></li>
+                <li><a href="contactus.html">Contact us</a></li>
+                <li><a href="aboutus.html">About us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>About Us - Skill Exchange Hub</h1>
+        <p>
+            Welcome to Skill Exchange Hub, your premier destination for collaborative learning and skill-sharing! At
+            Skill Exchange Hub, we believe that everyone has unique talents and knowledge to offer, and we’re passionate
+            about creating a platform where individuals can connect, learn, and grow together.
+        </p>
+
+        <div class="vision-mission">
+            <h2>Our Vision</h2>
+            <p>
+                We envision a world where knowledge knows no boundaries, and everyone has the opportunity to unlock
+                their full potential. By bridging the gap between learners and mentors, we aim to create a global
+                network of skill-sharing that enriches lives and builds stronger communities.
+            </p>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2023 Skill Exchange Hub. All rights reserved.
+    </footer>
+</body>
+
+</html>

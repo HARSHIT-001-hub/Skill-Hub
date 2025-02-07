@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In </title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #610ea5;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header .name a {
+            text-decoration: none;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 1.5em;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ffdd57;
+        }
+
+        .signin-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #6a3db3, #610ea5);
+            padding: 20px;
+        }
+
+        .signin-form {
+            background-color: #fff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            transform: translateY(0);
+            opacity: 1;
+            transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+        }
+
+        .signin-form h2 {
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+            font-size: 28px;
+        }
+
+        .signin-form label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-size: 16px;
+        }
+
+        .signin-form input[type="text"],
+        .signin-form input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .signin-form input[type="text"]:focus,
+        .signin-form input[type="password"]:focus {
+            border-color: #6a3db3;
+            box-shadow: 0 0 8px rgba(106, 61, 179, 0.3);
+            outline: none;
+        }
+
+        .signin-form button {
+            width: 100%;
+            padding: 12px;
+            background-color: #6a3db3;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .signin-form button:hover {
+            background-color: #59399d;
+            transform: translateY(-2px);
+        }
+
+        .signin-form .additional-links {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .signin-form .additional-links a {
+            color: #6a3db3;
+            text-decoration: none;
+            font-size: 14px;
+            margin: 0 5px;
+            transition: color 0.3s ease;
+        }
+
+        .signin-form .additional-links a:hover {
+            color: #388e3c;
+        }
+
+        /* Fill Details Section */
+        .fill-details {
+            padding: 60px 20px;
+            background-color: #fff;
+            text-align: center;
+        }
+
+        .fill-details h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .fill-details form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .fill-details label {
+            display: block;
+            margin-bottom: 10px;
+            color: #555;
+            font-size: 16px;
+            text-align: left;
+        }
+
+        .fill-details input[type="text"],
+        .fill-details input[type="email"],
+        .fill-details input[type="tel"],
+        .fill-details textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .fill-details input[type="text"]:focus,
+        .fill-details input[type="email"]:focus,
+        .fill-details input[type="tel"]:focus,
+        .fill-details textarea:focus {
+            border-color: #6a3db3;
+            box-shadow: 0 0 8px rgba(106, 61, 179, 0.3);
+            outline: none;
+        }
+
+        .fill-details textarea {
+            resize: vertical;
+            height: 120px;
+        }
+
+        .fill-details button {
+            width: 100%;
+            padding: 12px;
+            background-color: #6a3db3;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .fill-details button:hover {
+            background-color: #59399d;
+            transform: translateY(-2px);
+        }
+
+        /* Scroll Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scroll-animation {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .scroll-animation.delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .scroll-animation.delay-2 {
+            animation-delay: 0.4s;
+        }
+
+        .scroll-animation.delay-3 {
+            animation-delay: 0.6s;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .signin-form {
+                padding: 20px;
+            }
+
+            .fill-details form {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="name"><a href="index.html">Skill Hub</a></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="signin.html">Log in</a></li>
+                <li><a href="#">Community</a></li>
+                <li><a href="contactus.html">Contact us</a></li>
+                <li><a href="aboutus.html">About us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="signin-container">
+        <form class="signin-form scroll-animation" onsubmit="return handleSignIn(event);">
+            <h2>Sign In</h2>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+            <button type="submit">Sign In</button>
+
+            <div class="additional-links">
+                <a href="#">Forgot Password?</a>
+            </div>
+        </form>
+    </div>
+    <script>
+        function handleSignIn(event) {
+            event.preventDefault(); // Prevent the default form submission
+            // Redirect to the Dashboard page
+            window.location.href = 'dashboard.html'; // Change this to your actual dashboard page URL
+        }
+
+        // Scroll Animation Trigger
+        document.addEventListener('scroll', () => {
+            const elements = document.querySelectorAll('.scroll-animation');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (elementTop < windowHeight - 100) {
+                    element.style.opacity = 1;
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
