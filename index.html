@@ -5,25 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skill Hub</title>
     <style>
-            body {
-            font-family: Arial, sans-serif;
-            font-size: 18px;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 16px;
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            background-color: #f0f4f8;
+            background-color: #f9f9f9;
             color: #333;
             scroll-behavior: smooth;
         }
 
         header {
-            background-color: #610ea5;
+            background-color: #2c3e50;
             color: white;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 15px 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -32,8 +30,15 @@
         header .name a {
             text-decoration: none;
             color: white;
-            font-size: 24px;
+            font-size: 32px;
             font-weight: bold;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        nav {
+            margin-top: 10px;
         }
 
         nav ul {
@@ -41,22 +46,29 @@
             padding: 0;
             margin: 0;
             display: flex;
-            gap: 1.5em;
+            justify-content: center;
+            gap: 2em;
         }
 
         nav ul li a {
             text-decoration: none;
             color: white;
-            font-weight: bold;
-            transition: color 0.3s ease;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+            padding-bottom: 5px;
+            border-bottom: 2px solid transparent;
         }
 
         nav ul li a:hover {
             color: #ffd700;
+            border-bottom: 2px solid #ffd700;
         }
 
         main {
             padding: 2em;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .welcome-section {
@@ -65,7 +77,7 @@
             align-items: center;
             background-color: #ffffff;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             padding: 2em;
             margin-bottom: 2em;
             animation: fadeIn 1.5s ease-in-out;
@@ -75,10 +87,22 @@
             max-width: 60%;
         }
 
+        .welcome-text h2 {
+            font-size: 32px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .welcome-text p {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.8;
+        }
+
         .welcome-image img {
             width: 100%;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
         }
 
@@ -99,16 +123,24 @@
         }
 
         .vision-mission {
-            background-color: #f9f9f9;
+            background-color: #ffffff;
             padding: 2em;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             animation: fadeIn 2s ease-in-out;
         }
 
         .vision-mission h3 {
             margin-top: 0;
-            color: #610ea5;
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .vision-mission p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.8;
         }
 
         .community-images {
@@ -122,7 +154,7 @@
             width: 300px;
             height: auto;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
@@ -133,10 +165,11 @@
 
         footer {
             text-align: center;
-            background-color: #333;
+            background-color: #2c3e50;
             color: white;
-            padding: 1em 0;
+            padding: 1.5em 0;
             position: relative;
+            margin-top: 2em;
         }
 
         .shortcut-links {
@@ -149,7 +182,8 @@
         .shortcut-links a {
             color: white;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 500;
+            font-size: 16px;
             transition: color 0.3s ease;
         }
 
@@ -161,7 +195,7 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background-color: #610ea5;
+            background-color: #2c3e50;
             color: white;
             border: none;
             border-radius: 50%;
@@ -169,13 +203,13 @@
             height: 50px;
             font-size: 24px;
             cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             display: none;
             transition: background-color 0.3s ease;
         }
 
         .scroll-to-top:hover {
-            background-color: #8a2be2;
+            background-color: #34495e;
         }
 
         /* Animations */
@@ -202,6 +236,15 @@
             .community-images img {
                 width: 100%;
             }
+
+            nav ul {
+                flex-direction: column;
+                gap: 0.5em;
+            }
+
+            header .name a {
+                font-size: 28px;
+            }
         }
     </style>
 </head>
@@ -212,7 +255,7 @@
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="signin.html">Log in</a></li>
+                <li><a href="form.html">Log in</a></li>
                 <li><a href="#community">Community</a></li>
                 <li><a href="contactus.html">Contact us</a></li>
                 <li><a href="aboutus.html">About us</a></li>
