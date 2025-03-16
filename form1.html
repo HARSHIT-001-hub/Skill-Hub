@@ -1,29 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
   <title>Sign Up | Log In</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    
+    @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap');
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
       font-family: 'Raleway', sans-serif;
     }
+
+    html,
     body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
-    font-size: 16px;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-    background-color: #555;
-    color: #333;
-    scroll-behavior: smooth;
-}
-
+      display: grid;
+      height: 100%;
+      width: 100%;
+      place-items: center;
+      background: -webkit-linear-gradient(left, #9896F0, #FBC8D5);
+    }
 .header-container { 
     display: flex;
     justify-content: space-between;
@@ -104,7 +103,9 @@ nav ul li a:hover {
     color: #ffd700;
     border-bottom: 2px solid #ffd700;
 }
-::selection {
+
+
+    ::selection {
       background: #12e8f0;
       color: #fff;
     }
@@ -116,20 +117,15 @@ nav ul li a:hover {
       padding: 30px;
       border-radius: 5px;
       box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
-      margin: 50px auto; /* Center the container */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
     }
 
     .wrapper .title-text {
       display: flex;
-      width: 100%;
+      width: 200%;
     }
 
     .wrapper .title {
-      width: 100%;
+      width: 50%;
       font-size: 35px;
       font-weight: 600;
       text-align: center;
@@ -172,7 +168,7 @@ nav ul li a:hover {
       left: 0;
       z-index: 0;
       border-radius: 5px;
-      background: linear-gradient(to right, #FBEE97, #ADEDD5);
+      background: -webkit-linear-gradient(left, #FBEE97, #ADEDD5);
       transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
 
@@ -205,24 +201,19 @@ nav ul li a:hover {
 
     .wrapper .form-container {
       width: 100%;
-      
       overflow: hidden;
     }
 
     .form-container .form-inner {
       display: flex;
       width: 200%;
-      transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    }
-
-    #signup:checked ~ .form-container .form-inner {
-      transform: translateX(-50%);
     }
 
     .form-container .form-inner form {
       width: 50%;
       transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
+
     .form-inner form .field {
       height: 50px;
       width: 100%;
@@ -287,9 +278,10 @@ nav ul li a:hover {
       width: 300%;
       position: absolute;
       left: -100%;
-      background: linear-gradient(to right, #FBEE97, #ADEDD5, #FBEE97, #ADEDD5);
+      background: -webkit-linear-gradient(right, #FBEE97, #ADEDD5, #FBEE97, #ADEDD5);
       border-radius: 5px;
       transition: all 0.4s ease;
+      ;
     }
 
     form .btn:hover .btn-layer {
@@ -312,75 +304,80 @@ nav ul li a:hover {
     }
   </style>
 </head>
+
 <body>
-    <header>
-      <div class="header-container">
-          <div class="logo">
-              <a href="index.html">Skill Hub</a>
+  <header>
+    <div class="header-container">
+        <div class="logo">
+            <a href="index.html">Skill Hub</a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="aboutus.html">About Us</a></li>
+                <li><a href="contactus.html">Contact Us</a></li>
+                <li><a href="#community-text">Community</a></li>
+            </ul>
+        </nav>
+
+    </div>
+</header>
+
+  <div class="wrapper">
+    <div class="title-text">
+      <div class="title login">
+        Account
+      </div>
+      <div class="title signup">
+        Account
+      </div>
+    </div>
+    <div class="form-container">
+      <div class="slide-controls">
+        <input type="radio" name="slide" id="login" checked>
+        <input type="radio" name="slide" id="signup">
+        <label for="login" class="slide login">Login</label>
+        <label for="signup" class="slide signup">SignUp</label>
+        <div class="slider-tab"></div>
+      </div>
+      <div class="form-inner">
+        <form action="#" class="login">
+          <div class="field">
+            <input type="text" placeholder="Email Address" required>
           </div>
-          <center>
-          <nav>
-              <ul>
-                  <li><a href="index.html">Home</a></li>
-                  <li><a href="aboutus.html">About Us</a></li>
-                  <li><a href="contactus.html">Contact Us</a></li>
-                  <li><a href="#community-text">Community</a></li>
-              </ul>
-          </nav></center>
-      </div>
-  </header>
-  
-    <div class="wrapper">
-      <div class="title-text">
-        <div class="title login">
-          Account
-        </div>
-    </div>
-      <div class="form-container">
-        <div class="slide-controls">
-          <input type="radio" name="slide" id="login" checked>
-          <input type="radio" name="slide" id="signup">
-          <label for="login" class="slide login">Login</label>
-          <label for="signup" class="slide signup">SignUp</label>
-          <div class="slider-tab"></div>
-        </div>
-        <div class="form-inner">
-          <form action="#" class="login">
-            <div class="field">
-              <input type="text" placeholder="Email Address" required>
-            </div>
-            <div class="field">
-              <input type="password" placeholder="Password" required>
-            </div>
-            <div class="pass-link">
-              <a href="#">Reset password?</a>
-            </div>
-            <div class="field btn">
-              <div class="btn-layer"></div>
-              <input type="submit" value="Login">
-            </div>
-            <div class="signup-link">
-              Don't Have Account? <a href="">Create A New</a>
-            </div>
-          </form>
-          <form action="#" class="signup">
-            <div class="field">
-              <input type="text" placeholder="Email Address" required>
-            </div>
-            <div class="field">
-              <input type="password" placeholder="Password" required>
-            </div>
-            <div class="field">
-              <input type="password" placeholder="Confirm Password" required>
-            </div>
-            <div class="field btn">
-              <div class="btn-layer"></div>
-              <input type="submit" value="SignUp">
-            </div>
-          </form>
-        </div>
+          <div class="field">
+            <input type="password" placeholder="Password" required>
+          </div>
+          <div class="pass-link">
+            <a href="#">Reset password?</a>
+          </div>
+          <div class="field btn">
+            <div class="btn-layer"></div>
+            <input type="submit" value="Login">
+          </div>
+          <div class="signup-link">
+            Don't Have Account? <a href="">Create A New</a>
+          </div>
+        </form>
+        <form action="#" class="signup">
+          <div class="field">
+            <input type="text" placeholder="Email Address" required>
+          </div>
+          <div class="field">
+            <input type="password" placeholder="Password" required>
+          </div>
+          <div class="field">
+            <input type="password" placeholder="Confirm Password" required>
+          </div>
+          <div class="field btn">
+            <div class="btn-layer"></div>
+            <input type="submit" value="SignUp">
+          </div>
+        </form>
       </div>
     </div>
-    <script src="style.js"></script>
+  </div>
+  <script src="style.js"></script>
 </body>
+
 </html>
