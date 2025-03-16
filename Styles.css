@@ -100,7 +100,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #ffffff;
+    background-color: aliceblue;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 2em;
@@ -223,7 +223,27 @@ section.visible {
     margin-bottom: 15px;
 }
 
-.vision-mission p {
+.our-mission p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.8;
+}
+.our-mission {
+    background-color: aliceblue;
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 2s ease-in-out;
+}
+
+.our-mission h3 {
+    margin-top: 0;
+    color: #2c3e50;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.our-mission p {
     font-size: 16px;
     color: #555;
     line-height: 1.8;
