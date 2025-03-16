@@ -9,7 +9,7 @@ body {
     scroll-behavior: smooth;
 }
 
-.header-container {
+.header-container { 
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -62,7 +62,6 @@ body {
     }
 }
 
-
 nav {
     margin-top: 10px;
 }
@@ -112,12 +111,9 @@ main {
 }
 
 .welcome-text {
-
     padding: 10em;
     background-image: url('im1.jfif');
-    /* Background image */
     background-size: 100% 100%;
-    /* Stretches the image to fit the white box */
     background-repeat: no-repeat;
     background-position: center;
     border-radius: 10px;
@@ -127,8 +123,6 @@ main {
     text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
 }
 
-
-/* Overlay for better readability */
 .welcome-text::before {
     content: "";
     position: absolute;
@@ -137,7 +131,6 @@ main {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    /* Dark overlay */
     border-radius: 10px;
     z-index: -1;
 }
@@ -178,6 +171,7 @@ section.visible {
     opacity: 1;
     transform: translateY(0);
 }
+
 .skills-list {
     display: flex;
     flex-wrap: wrap;
@@ -214,9 +208,8 @@ section.visible {
     transform: scale(1.05);
 }
 
-
 .vision-mission {
-    background-color: #ffffff;
+    background-color: aliceblue;
     padding: 2em;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -235,23 +228,11 @@ section.visible {
     color: #555;
     line-height: 1.8;
 }
-.community-text {
-    max-width: 60%;
-    padding: 2em;
-    background-image: url('your-image.jpg'); /* Add a background image */
-    background-size: cover;
-    background-position: center;
-    border-radius: 10px;
-    position: relative;
-    z-index: 1;
-    color: white;
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-}
 
 .community-text {
     max-width: 60%;
     padding: 2em;
-    background-color: #ffffff; /* White background */
+    background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     position: relative;
@@ -260,7 +241,6 @@ section.visible {
     text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Styling for the title and paragraph inside community text */
 .community-text h3 {
     font-size: 28px;
     color: #2c3e50;
@@ -273,7 +253,6 @@ section.visible {
     line-height: 1.8;
 }
 
-/* Apply border-radius to images */
 .community-images {
     display: flex;
     gap: 1em;
@@ -284,7 +263,7 @@ section.visible {
 .community-images img {
     width: 300px;
     height: auto;
-    border-radius: 10px; /* Apply rounded corners */
+    border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -292,6 +271,28 @@ section.visible {
 .community-images img:hover {
     transform: scale(1.05);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.community-box {
+    background-color: #e8f7fd;
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 2s ease-in-out;
+    margin-bottom: 2em;
+}
+
+.community-box h3 {
+    margin-top: 0;
+    color: #2c3e50;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.community-box p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.8;
 }
 
 /* Responsive Design */
@@ -300,55 +301,15 @@ section.visible {
         max-width: 100%;
         padding: 1.5em;
     }
+
+    .community-images img {
+        width: 100%;
+    }
 }
-
-
-.community-images {
-    display: flex;
-    gap: 1.5em;
-    justify-content: center;
-    flex-wrap: wrap;
-    background-color: #ffffff; /* White background like welcome section */
-    padding: 2em;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    position: relative;
-    overflow: hidden;
-    animation: fadeIn 1.5s ease-in-out;
-}
-
-.community-images::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.1); /* Subtle overlay */
-    border-radius: 10px;
-    z-index: 0;
-}
-
-.community-images img {
-    width: 280px;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
-    z-index: 1;
-}
-
-.community-images img:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    filter: brightness(1.1); /* Slightly enhance image */
-}
-
 
 footer {
     text-align: center;
-    background-color: #2c3e50;
+    background-color: #555;
     color: white;
     padding: 1.5em 0;
     position: relative;
