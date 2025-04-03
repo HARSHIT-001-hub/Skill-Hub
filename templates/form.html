@@ -345,7 +345,7 @@ nav ul li a:hover {
           <div class="slider-tab"></div>
         </div>
         <div class="form-inner">
-          <form action="#" class="login">
+          <form action="dashboard.html" class="login">
             <div class="field">
               <input type="text" placeholder="Email Address" required>
             </div>
@@ -363,7 +363,7 @@ nav ul li a:hover {
               Don't Have Account? <a href="">Create A New</a>
             </div>
           </form>
-          <form action="#" class="signup">
+          <form action="profile.html" class="signup">
             <div class="field">
               <input type="text" placeholder="Email Address" required>
             </div>
@@ -381,6 +381,24 @@ nav ul li a:hover {
         </div>
       </div>
     </div>
-    <script src="style.js"></script>
+    <script>
+      const loginText = document.querySelector(".title-text .login");
+const loginForm = document.querySelector("form.login");
+const loginBtn = document.querySelector("label.login");
+const signupBtn = document.querySelector("label.signup");
+const signupLink = document.querySelector("form .signup-link a");
+signupBtn.onclick = (()=>{
+ loginForm.style.marginLeft = "-50%";
+ loginText.style.marginLeft = "-50%";
+});
+loginBtn.onclick = (()=>{
+ loginForm.style.marginLeft = "0%";
+ loginText.style.marginLeft = "0%";
+});
+signupLink.onclick = (()=>{
+ signupBtn.click();
+ return false;
+});
+    </script>
 </body>
 </html>
