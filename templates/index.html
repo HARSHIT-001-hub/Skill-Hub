@@ -120,7 +120,7 @@ main {
 
 .welcome-text {
     padding: 10em;
-    background-image: url('im1.jfif');
+    background-image: url("{{ url_for('static', filename='mmp.png') }}");
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -460,43 +460,43 @@ footer {
             <h3>Skills to Learn</h3>
             <div class="skills-list">
                 <div class="skill">
-                    <img src="images\java.png" alt="Java">
+                    <img src="{{ url_for('static', filename='java.png') }}" alt="Java">
                     <p>Java</p>
                 </div>
                 <div class="skill">
-                    <img src="images\py.webp" alt="Python">
+                    <img src="{{ url_for('static', filename='py.webp') }}" alt="Python">
                     <p>Python</p>
                 </div>
                 <div class="skill">
-                    <img src="images\JS.jpg" alt="JavaScript">
+                    <img src="{{ url_for('static', filename='JS.jpg') }}" alt="JavaScript">
                     <p>JavaScript</p>
                 </div>
                 <div class="skill">
-                    <img src="images\DS.png" alt="Data Science">
+                    <img src="{{ url_for('static', filename='DS.png') }}" alt="Data Science">
                     <p>Data Science</p>
                 </div>
                 <div class="skill">
-                    <img src="images\AI.jpg" alt="Artificial Intelligence">
+                    <img src="{{ url_for('static', filename='AI.jpg') }}" alt="Artificial Intelligence">
                     <p>Artificial Intelligence</p>
                 </div>
                 <div class="skill">
-                    <img src="images\CS.png" alt="Cybersecurity">
+                    <img src="{{ url_for('static', filename='CS.png') }}" alt="Cybersecurity">
                     <p>Cybersecurity</p>
                 </div>
                 <div class="skill">
-                    <img src="images\CC.png" alt="Cloud Computing">
+                    <img src="{{ url_for('static', filename='CC.png') }}" alt="Cloud Computing">
                     <p>Cloud Computing</p>
                 </div>
                 <div class="skill">
-                    <img src="images\UIUX.jpg" alt="UI/UX Design">
+                    <img src="{{ url_for('static', filename='UIUX.jpg') }}" alt="UI/UX Design">
                     <p>UI/UX Design</p>
                 </div>
                 <div class="skill">
-                    <img src="images\DM.jpg" alt="Digital Marketing">
+                    <img src="{{ url_for('static', filename='DM.jpg') }}" alt="Digital Marketing">
                     <p>Digital Marketing</p>
                 </div>
                 <div class="skill">
-                    <img src="images\VE.jpg" alt="Video Editing">
+                    <img src="{{ url_for('static', filename='VE.jpg') }}" alt="Video Editing">
                     <p>Video Editing</p>
                 </div>
             </div>
@@ -509,8 +509,8 @@ footer {
                 retirement years.
             </p>
             <div class="community-images">
-                <img src="im2.jpg" alt="Community event">
-                <img src="im3.webp" alt="Seniors in a workshop">
+                <img src="{{ url_for('static', filename='im2.jpg') }}" alt="Community event">
+                <img src="{{ url_for('static', filename='im3.webp') }}" alt="Seniors in a workshop">
             </div>
         </section>
     </main>
@@ -558,6 +558,7 @@ footer {
                 behavior: 'smooth'
             });
         }
+        
     </script>
 </body>
 

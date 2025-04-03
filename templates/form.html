@@ -345,39 +345,40 @@ nav ul li a:hover {
           <div class="slider-tab"></div>
         </div>
         <div class="form-inner">
-          <form action="dashboard.html" class="login">
+          <form id="login-form" action="profile.html" class="login">
             <div class="field">
-              <input type="text" placeholder="Email Address" required>
+                <input type="text" id="login-email" name="email" placeholder="Email Address" required>
             </div>
             <div class="field">
-              <input type="password" placeholder="Password" required>
+                <input type="password" id="login-password" name="password" placeholder="Password" required>
             </div>
             <div class="pass-link">
-              <a href="#">Reset password?</a>
+                <a href="#">Reset password?</a>
             </div>
             <div class="field btn">
-              <div class="btn-layer"></div>
-              <input type="submit" value="Login">
+                <div class="btn-layer"></div>
+                <input type="submit" value="Login">
             </div>
             <div class="signup-link">
-              Don't Have Account? <a href="">Create A New</a>
+                Don't Have Account? <a href="">Create A New</a>
             </div>
-          </form>
-          <form action="profile.html" class="signup">
+        </form>
+        
+          <form id="register-form" action="profile.html" class="signup">
             <div class="field">
-              <input type="text" placeholder="Email Address" required>
-            </div>
-            <div class="field">
-              <input type="password" placeholder="Password" required>
+                <input type="text" id="email" placeholder="Email Address" required>
             </div>
             <div class="field">
-              <input type="password" placeholder="Confirm Password" required>
+                <input type="password" id="password" placeholder="Password" required>
+            </div>
+            <div class="field">
+                <input type="password" id="confirm-password" placeholder="Confirm Password" required>
             </div>
             <div class="field btn">
               <div class="btn-layer"></div>
               <input type="submit" value="SignUp">
             </div>
-          </form>
+        </form>
         </div>
       </div>
     </div>
@@ -399,6 +400,141 @@ signupLink.onclick = (()=>{
  signupBtn.click();
  return false;
 });
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("Page Loaded - JavaScript Ready");
+
+    // Register form handling
+    const registerForm = document.getElementById("register-form");
+    if (registerForm) {
+        registerForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            if (!email || !password) {
+                alert("Please enter both email and password.");
+                return;
+            }
+
+            console.log("Sending Registration Data:", { email, password });
+
+            try {
+                const response = await fetch("/register", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log("Received Response:", data);
+
+                alert(data.message);
+                if (data.success) {
+                    window.location.href = "profile.html"; // Redirect after success
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Registration failed. Please try again.");
+            }
+        });
+    } else {
+        console.error("Register form not found!");
+    }
+
+    // Login form handling
+    const loginForm = document.getElementById("login-form");
+    if (loginForm) {
+        loginForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const email = document.getElementById("login-email").value.trim();
+            const password = document.getElementById("login-password").value.trim();
+
+            if (!email || !password) {
+                alert("Please enter both email and password.");
+                return;
+            }
+
+            console.log("Sending Login Data:", { email, password });
+
+            try {
+                const response = await fetch("/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log("Received Response:", data);
+
+                alert(data.message);
+                if (data.success) {
+                    window.location.href = "profile.html"; // Redirect on success
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Login failed. Please try again.");
+            }
+        });
+    } else {
+        console.error("Login form not found!");
+    }
+});
+app.post("/login", async (req, res) => {
+    const { email, password } = req.body;
+    console.log("Checking credentials for:", email);
+
+    const user = await db.getUserByEmail(email);
+    if (!user) {
+        console.log("User not found!");
+        return res.status(401).json({ success: false, message: "Invalid credentials!" });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    console.log("Password match:", isPasswordValid);
+
+    if (!isPasswordValid) {
+        return res.status(401).json({ success: false, message: "Invalid credentials!" });
+    }
+
+    res.json({ success: true, message: "Login successful!" });
+});
+document.getElementById("loginForm").addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    try {
+        const response = await fetch("http://127.0.0.1:5000/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        });
+
+        const result = await response.json();
+        alert(result.message);
+
+        if (result.success) {
+            localStorage.setItem("userEmail", email);  // ✅ Store email
+            console.log("User email saved:", email);
+            window.location.href = "dashboard.html";  // ✅ Redirect to dashboard
+        }
+    } catch (error) {
+        console.error("Login error:", error);
+        alert("Login failed!");
+    }
+});
+
     </script>
 </body>
 </html>
