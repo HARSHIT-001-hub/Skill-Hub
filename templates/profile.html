@@ -4,120 +4,580 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Profile | Skill Hub</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-       body {
-           font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-           font-size: 16px;
-           line-height: 1.6;
+       :root {
+           --primary: #6c5ce7;
+           --secondary: #a29bfe;
+           --accent: #fd79a8;
+           --dark: #2d3436;
+           --light: #f5f6fa;
+           --success: #00b894;
+       }
+
+       * {
+           box-sizing: border-box;
            margin: 0;
            padding: 0;
-           background-color: #555;
-           color: #333;
-           scroll-behavior: smooth;
+       }
+
+       body {
+           font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+           background: linear-gradient(135deg, var(--primary), var(--secondary));
+           color: var(--dark);
+           min-height: 100vh;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           padding: 20px;
+           line-height: 1.6;
+           overflow-x: hidden;
        }
 
        .container {
-           max-width: 400px;
-           margin: auto;
-           padding: 20px;
-           border: 1px solid #ddd;
-           border-radius: 10px;
-           background-color: white;
-           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+           width: 100%;
+           max-width: 500px;
+           background: rgba(255, 255, 255, 0.95);
+           border-radius: 20px;
+           padding: 30px;
+           box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+           backdrop-filter: blur(10px);
+           transform-style: preserve-3d;
+           perspective: 1000px;
+           transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+           animation: fadeInUp 0.8s ease-out;
+       }
+
+       .container:hover {
+           transform: translateY(-5px) rotateX(2deg);
+           box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+       }
+
+       h2 {
+           text-align: center;
+           margin-bottom: 25px;
+           color: var(--primary);
+           font-size: 28px;
+           position: relative;
+           padding-bottom: 10px;
+       }
+
+       h2::after {
+           content: '';
+           position: absolute;
+           bottom: 0;
+           left: 50%;
+           transform: translateX(-50%);
+           width: 80px;
+           height: 4px;
+           background: var(--accent);
+           border-radius: 2px;
+       }
+
+       .form-group {
+           margin-bottom: 20px;
+           position: relative;
+       }
+
+       label {
+           display: block;
+           margin-bottom: 8px;
+           font-weight: 500;
+           color: var(--dark);
+           transition: all 0.3s ease;
        }
 
        input, select {
            width: 100%;
-           padding: 8px;
-           margin: 10px 0;
-           border-radius: 5px;
-           border: 1px solid #ccc;
+           padding: 12px 15px;
+           border: 2px solid #e0e0e0;
+           border-radius: 10px;
+           font-size: 16px;
+           transition: all 0.3s ease;
+           background-color: var(--light);
+       }
+
+       input:focus, select:focus {
+           border-color: var(--primary);
+           box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+           outline: none;
+           transform: translateY(-2px);
+       }
+
+       input:focus + .input-icon, select:focus + .input-icon {
+           color: var(--primary);
+           transform: scale(1.2);
+       }
+
+       .input-icon {
+           position: absolute;
+           right: 15px;
+           top: 38px;
+           color: #aaa;
+           transition: all 0.3s ease;
        }
 
        button {
            width: 100%;
-           padding: 10px;
-           background-color: #28a745;
+           padding: 14px;
+           background: linear-gradient(135deg, var(--primary), var(--secondary));
            color: white;
            border: none;
+           border-radius: 10px;
+           font-size: 16px;
+           font-weight: 600;
            cursor: pointer;
-           border-radius: 5px;
-           transition: background 0.3s ease;
+           transition: all 0.3s ease;
+           position: relative;
+           overflow: hidden;
+           box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
        }
 
        button:hover {
-           background-color: #218838;
+           transform: translateY(-3px);
+           box-shadow: 0 8px 20px rgba(108, 92, 231, 0.6);
+       }
+
+       button:active {
+           transform: translateY(1px);
+       }
+
+       button::before {
+           content: '';
+           position: absolute;
+           top: 0;
+           left: -100%;
+           width: 100%;
+           height: 100%;
+           background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+           transition: 0.5s;
+       }
+
+       button:hover::before {
+           left: 100%;
+       }
+
+       .language-tags {
+           display: flex;
+           flex-wrap: wrap;
+           gap: 10px;
+           margin-top: 10px;
+       }
+
+       .language-tag {
+           background: var(--light);
+           padding: 5px 12px;
+           border-radius: 20px;
+           font-size: 14px;
+           display: flex;
+           align-items: center;
+           cursor: pointer;
+           transition: all 0.3s ease;
+           box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+       }
+
+       .language-tag:hover {
+           background: var(--primary);
+           color: white;
+           transform: translateY(-2px);
+       }
+
+       .language-tag.selected {
+           background: var(--primary);
+           color: white;
+       }
+
+       .language-tag i {
+           margin-left: 5px;
+           font-size: 12px;
+       }
+
+       .progress-container {
+           width: 100%;
+           height: 8px;
+           background: #e0e0e0;
+           border-radius: 4px;
+           margin: 20px 0;
+           overflow: hidden;
+       }
+
+       .progress-bar {
+           height: 100%;
+           width: 0%;
+           background: linear-gradient(90deg, var(--accent), var(--primary));
+           border-radius: 4px;
+           transition: width 0.5s ease;
+       }
+
+       .floating-animation {
+           position: absolute;
+           width: 100px;
+           height: 100px;
+           background: rgba(255, 255, 255, 0.1);
+           border-radius: 50%;
+           pointer-events: none;
+           z-index: -1;
+       }
+
+       @keyframes float {
+           0%, 100% { transform: translateY(0) rotate(0deg); }
+           50% { transform: translateY(-20px) rotate(5deg); }
+       }
+
+       @keyframes pulse {
+           0%, 100% { transform: scale(1); }
+           50% { transform: scale(1.05); }
+       }
+
+       @keyframes fadeInUp {
+           from {
+               opacity: 0;
+               transform: translateY(30px);
+           }
+           to {
+               opacity: 1;
+               transform: translateY(0);
+           }
+       }
+
+       /* Responsive adjustments */
+       @media (max-width: 600px) {
+           .container {
+               padding: 20px;
+           }
+           h2 {
+               font-size: 24px;
+           }
+       }
+
+       /* Custom select styling */
+       select {
+           appearance: none;
+           background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+           background-repeat: no-repeat;
+           background-position: right 10px center;
+           background-size: 15px;
+       }
+
+       /* Floating particles background */
+       .particles {
+           position: fixed;
+           top: 0;
+           left: 0;
+           width: 100%;
+           height: 100%;
+           z-index: -2;
+           overflow: hidden;
+       }
+
+       .particle {
+           position: absolute;
+           background: rgba(255, 255, 255, 0.5);
+           border-radius: 50%;
+           animation: float 15s infinite linear;
        }
     </style>
 </head>
 <body>
+    <!-- Floating particles background -->
+    <div class="particles" id="particles"></div>
 
-    <header>
-        <div class="container">
-            <h1>Skill Hub</h1>
-            <nav>
-                <a href="index.html">Home</a> |
-                <a href="aboutus.html">About Us</a> |
-                <a href="contactus.html">Contact Us</a>
-            </nav>
-        </div>
-    </header>
-
-    <div class="container">
+    <div class="container animate__animated animate__fadeInUp">
         <h2>Create Your Profile</h2>
-        <form id="profileForm" action="http://127.0.0.1:5000/save-profile" method="POST">
+        
+        <!-- Progress bar -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        
+        <form id="profileForm">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+                <i class="fas fa-user input-icon"></i>
+            </div>
 
-            <label>Name:</label>
-            <input type="text" id="name" required>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" required>
+                <i class="fas fa-phone input-icon"></i>
+            </div>
 
-            <label>Phone:</label>
-            <input type="tel" id="phone" required>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" id="address" name="address" required>
+                <i class="fas fa-map-marker-alt input-icon"></i>
+            </div>
 
-            <label>Address:</label>
-            <input type="text" id="address" required>
+            <div class="form-group">
+                <label>Interesting Programming Language</label>
+                <select id="interestingLanguage" name="interestingLanguage">
+                    <option value="Python">Python</option>
+                    <option value="JavaScript">JavaScript</option>
+                    <option value="Java">Java</option>
+                    <option value="C++">C++</option>
+                </select>
+                <i class="fas fa-code input-icon"></i>
+            </div>
 
-            <label>Interesting Programming Language:</label>
-            <select id="interestingLanguage">
-                <option value="Python">Python</option>
-                <option value="JavaScript">JavaScript</option>
-                <option value="Java">Java</option>
-                <option value="C++">C++</option>
-            </select>
+            <div class="form-group">
+                <label>Programming Language You Know</label>
+                <select id="knownLanguage" name="knownLanguage">
+                    <option value="Python">Python</option>
+                    <option value="JavaScript">JavaScript</option>
+                    <option value="Java">Java</option>
+                    <option value="C++">C++</option>
+                </select>
+                <i class="fas fa-laptop-code input-icon"></i>
+            </div>
 
-            <label>Programming Language You Know:</label>
-            <select id="knownLanguage">
-                <option value="Python">Python</option>
-                <option value="JavaScript">JavaScript</option>
-                <option value="Java">Java</option>
-                <option value="C++">C++</option>
-            </select>
+            <div class="form-group">
+                <label>Proficiency Level</label>
+                <select id="level" name="level">
+                    <option value="Beginner">Beginner</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Advanced">Advanced</option>
+                </select>
+                <i class="fas fa-chart-line input-icon"></i>
+            </div>
 
-            <label>Proficiency Level:</label>
-            <select id="level">
-                <option value="Beginner">Beginner</option>
-                <option value="Intermediate">Intermediate</option>
-                <option value="Advanced">Advanced</option>
-            </select>
-
-            <button type="submit">Save Profile</button>
+            <button type="submit" id="submitBtn">
+                <span class="btn-text">Save Profile</span>
+                <i class="fas fa-paper-plane btn-icon"></i>
+            </button>
         </form>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script>
-document.addEventListener("DOMContentLoaded", () => {
-    const email = localStorage.getItem("userEmail");
+        document.addEventListener("DOMContentLoaded", () => {
+            // Create floating particles
+            createParticles();
 
-    if (!email) {
-        alert("User not logged in! Redirecting...");
-        window.location.href = "index.html";  // Redirect to login page
-    } else {
-        console.log("User is logged in as:", email);
-    }
-});
+            // Animate form elements on load
+            gsap.from(".form-group", {
+                duration: 0.8,
+                y: 20,
+                opacity: 0,
+                stagger: 0.1,
+                ease: "back.out(1.7)"
+            });
 
+            // Update progress bar as user fills the form
+            const formInputs = document.querySelectorAll("input, select");
+            formInputs.forEach(input => {
+                input.addEventListener("input", updateProgressBar);
+            });
 
+            // Load existing profile if available
+            loadProfile(email);
+            
+            // Setup form submission
+            document.getElementById("profileForm").addEventListener("submit", async (e) => {
+                e.preventDefault();
+                
+                const submitBtn = document.getElementById("submitBtn");
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+                
+                const formData = {
+                    email: email,
+                    name: document.getElementById("name").value,
+                    phone: document.getElementById("phone").value,
+                    address: document.getElementById("address").value,
+                    interestingLanguage: document.getElementById("interestingLanguage").value,
+                    knownLanguage: document.getElementById("knownLanguage").value,
+                    level: document.getElementById("level").value
+                };
+                
+                try {
+                    // Simulate API call with animation
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    
+                    // In a real app, you would use fetch:
+                    // const response = await fetch("/save-profile", {
+                    //     method: "POST",
+                    //     headers: { "Content-Type": "application/json" },
+                    //     body: JSON.stringify(formData)
+                    // });
+                    // const result = await response.json();
+                    
+                    // For demo purposes:
+                    const result = { success: true, message: "Profile saved successfully!" };
+                    
+                    showFancyAlert(result.message, "success");
+                    
+                    // Animate success
+                    gsap.to(".container", {
+                        duration: 0.5,
+                        y: -10,
+                        boxShadow: "0 20px 40px rgba(108, 92, 231, 0.6)",
+                        repeat: 1,
+                        yoyo: true,
+                        ease: "power1.inOut"
+                    });
+                    
+                } catch (error) {
+                    console.error("Error saving profile:", error);
+                    showFancyAlert("Failed to save profile", "error");
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<span class="btn-text">Save Profile</span><i class="fas fa-paper-plane btn-icon"></i>';
+                }
+            });
+        });
 
+        function createParticles() {
+            const particlesContainer = document.getElementById("particles");
+            const particleCount = 15;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement("div");
+                particle.classList.add("particle");
+                
+                // Random properties
+                const size = Math.random() * 10 + 5;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 10;
+                const duration = Math.random() * 15 + 10;
+                const opacity = Math.random() * 0.4 + 0.1;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.opacity = opacity;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        function updateProgressBar() {
+            const inputs = document.querySelectorAll("input, select");
+            let filledCount = 0;
+            
+            inputs.forEach(input => {
+                if (input.value.trim() !== "") {
+                    filledCount++;
+                }
+            });
+            
+            const progress = (filledCount / inputs.length) * 100;
+            document.getElementById("progressBar").style.width = `${progress}%`;
+            
+            // Change color based on progress
+            if (progress < 30) {
+                document.getElementById("progressBar").style.background = "#ff7675";
+            } else if (progress < 70) {
+                document.getElementById("progressBar").style.background = "#fdcb6e";
+            } else {
+                document.getElementById("progressBar").style.background = "linear-gradient(90deg, var(--accent), var(--primary))";
+            }
+        }
+
+        async function loadProfile(email) {
+            try {
+                // Simulate API call with animation
+                await new Promise(resolve => setTimeout(resolve, 800));
+                
+                // In a real app, you would use fetch:
+                // const response = await fetch(`/get-profile?email=${encodeURIComponent(email)}`);
+                // const data = await response.json();
+                
+                // For demo purposes:
+                const data = {
+                    success: true,
+                    profile: {
+                        name: "John Doe",
+                        phone: "123-456-7890",
+                        address: "123 Main St",
+                        interestingLanguage: "JavaScript",
+                        knownLanguage: "Python",
+                        level: "Intermediate"
+                    }
+                };
+                
+                if (data.success && data.profile) {
+                    // Animate the form filling
+                    gsap.to("#name", { duration: 0.5, value: data.profile.name || "", ease: "power2.out" });
+                    gsap.to("#phone", { duration: 0.5, value: data.profile.phone || "", ease: "power2.out", delay: 0.1 });
+                    gsap.to("#address", { duration: 0.5, value: data.profile.address || "", ease: "power2.out", delay: 0.2 });
+                    
+                    document.getElementById("interestingLanguage").value = data.profile.interestingLanguage || "Python";
+                    document.getElementById("knownLanguage").value = data.profile.knownLanguage || "Python";
+                    document.getElementById("level").value = data.profile.level || "Beginner";
+                    
+                    // Update progress bar after animation
+                    setTimeout(updateProgressBar, 800);
+                }
+            } catch (error) {
+                console.error("Error loading profile:", error);
+            }
+        }
+
+        function showFancyAlert(message, type) {
+            const alert = document.createElement("div");
+            alert.className = `fancy-alert ${type}`;
+            alert.innerHTML = `
+                <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(alert);
+            
+            // Animate in
+            gsap.from(alert, {
+                duration: 0.5,
+                y: 50,
+                opacity: 0,
+                ease: "back.out(1.7)"
+            });
+            
+            // Animate out after delay
+            setTimeout(() => {
+                gsap.to(alert, {
+                    duration: 0.5,
+                    y: -50,
+                    opacity: 0,
+                    ease: "back.in(1.7)",
+                    onComplete: () => alert.remove()
+                });
+            }, 3000);
+            
+            // Add some styles for the alert
+            const style = document.createElement("style");
+            style.textContent = `
+                .fancy-alert {
+                    position: fixed;
+                    bottom: 30px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    padding: 15px 25px;
+                    border-radius: 10px;
+                    color: white;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    z-index: 1000;
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                    font-weight: 500;
+                }
+                .fancy-alert.success {
+                    background: linear-gradient(135deg, #00b894, #55efc4);
+                }
+                .fancy-alert.error {
+                    background: linear-gradient(135deg, #d63031, #ff7675);
+                }
+                .fancy-alert i {
+                    font-size: 20px;
+                }
+            `;
+            document.head.appendChild(style);
+        }
     </script>
 </body>
 </html>

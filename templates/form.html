@@ -447,94 +447,38 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Login form handling
-    const loginForm = document.getElementById("login-form");
-    if (loginForm) {
-        loginForm.addEventListener("submit", async function (event) {
-            event.preventDefault();
-
-            const email = document.getElementById("login-email").value.trim();
-            const password = document.getElementById("login-password").value.trim();
-
-            if (!email || !password) {
-                alert("Please enter both email and password.");
-                return;
-            }
-
-            console.log("Sending Login Data:", { email, password });
-
-            try {
-                const response = await fetch("/login", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ email, password })
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-
-                const data = await response.json();
-                console.log("Received Response:", data);
-
-                alert(data.message);
-                if (data.success) {
-                    window.location.href = "profile.html"; // Redirect on success
-                }
-            } catch (error) {
-                console.error("Error:", error);
-                alert("Login failed. Please try again.");
-            }
-        });
-    } else {
-        console.error("Login form not found!");
-    }
-});
-app.post("/login", async (req, res) => {
-    const { email, password } = req.body;
-    console.log("Checking credentials for:", email);
-
-    const user = await db.getUserByEmail(email);
-    if (!user) {
-        console.log("User not found!");
-        return res.status(401).json({ success: false, message: "Invalid credentials!" });
-    }
-
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    console.log("Password match:", isPasswordValid);
-
-    if (!isPasswordValid) {
-        return res.status(401).json({ success: false, message: "Invalid credentials!" });
-    }
-
-    res.json({ success: true, message: "Login successful!" });
-});
-document.getElementById("loginForm").addEventListener("submit", async (event) => {
-    event.preventDefault();
-
+    // In your login page's JavaScript
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
-
+    
     try {
-        const response = await fetch("http://127.0.0.1:5000/login", {
+        console.log("Attempting login with:", email); // Debug log
+        
+        const response = await fetch("/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password })
         });
-
-        const result = await response.json();
-        alert(result.message);
-
-        if (result.success) {
-            localStorage.setItem("userEmail", email);  // ✅ Store email
-            console.log("User email saved:", email);
-            window.location.href = "dashboard.html";  // ✅ Redirect to dashboard
+        
+        const data = await response.json();
+        console.log("Login response:", data); // Debug log
+        
+        if (data.success) {
+            localStorage.setItem("userEmail", email);
+            console.log("Stored email in localStorage:", localStorage.getItem("userEmail")); // Verify storage
+            window.location.href = "dashboard.html";
+        } else {
+            alert(data.message);
         }
     } catch (error) {
         console.error("Login error:", error);
-        alert("Login failed!");
+        alert("Login failed. Please try again.");
     }
+}); 
 });
-
     </script>
 </body>
 </html>
