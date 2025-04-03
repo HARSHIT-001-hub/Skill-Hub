@@ -180,7 +180,7 @@ footer {
     <!-- FORM SECTION -->
     <div class="container">
         <h2>Create Your Profile</h2>
-        <form id="profileForm">
+        <form  action="dashboard.html" id="profileForm">
             <label>Name:</label>
             <input type="text" id="name" required>
 
@@ -232,20 +232,22 @@ footer {
     <button class="scroll-to-top" onclick="scrollToTop()">↑</button>
 
     <script>
-        function saveProfile() {
-            const profile = {
-                name: document.getElementById("name").value,
-                phone: document.getElementById("phone").value,
-                address: document.getElementById("address").value,
-                interestingLanguage: document.getElementById("interestingLanguage").value,
-                knownLanguage: document.getElementById("knownLanguage").value,
-                level: document.getElementById("level").value
-            };
+function saveProfile() {
+    const profile = {
+        name: document.getElementById("name").value,
+        phone: document.getElementById("phone").value,
+        address: document.getElementById("address").value,
+        interestingLanguage: document.getElementById("interestingLanguage").value,
+        knownLanguage: document.getElementById("knownLanguage").value,
+        level: document.getElementById("level").value
+    };
 
-            console.log("Profile Data:", profile);
-            alert("Profile Saved Successfully!");
-            // Store the data in a database or local storage in the future
-        }
+    console.log("Profile Data:", profile);
+    alert("Profile Saved Successfully!");
+    
+    // Redirect to dashboard.html
+    window.location.href = "dashboard.html";
+}
 
         // SCROLL TO TOP FUNCTIONALITY
         const scrollToTopButton = document.querySelector('.scroll-to-top');
@@ -264,6 +266,31 @@ footer {
                 behavior: 'smooth'
             });
         }
+        function saveProfile() {
+    const profile = {
+        name: document.getElementById("name").value,
+        phone: document.getElementById("phone").value,
+        address: document.getElementById("address").value,
+        interestingLanguage: document.getElementById("interestingLanguage").value,
+        knownLanguage: document.getElementById("knownLanguage").value,
+        level: document.getElementById("level").value
+    };
+
+    fetch("http://127.0.0.1:5000/save-profile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(profile)
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+        if (data.success) {
+            window.location.href = "C:\Users\Administrator\Documents\GitHub\Skill-Hub\templates\dashboard.html";  // Redirect after saving
+        }
+    })
+    .catch(error => console.error("Error:", error));
+}
+
     </script>
 
 </body>
