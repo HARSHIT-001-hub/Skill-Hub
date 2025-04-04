@@ -6,6 +6,7 @@
     <title>Create Profile | Skill Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- [Previous CSS remains exactly the same] -->
     <style>
        :root {
            --primary: #6c5ce7;
@@ -348,6 +349,8 @@
             </button>
         </form>
     </div>
+            <!-- [All your existing form elements remain the same] -->
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script>
@@ -370,214 +373,194 @@
                 input.addEventListener("input", updateProgressBar);
             });
 
-            // Load existing profile if available
-            loadProfile(email);
+            // Get email from localStorage
+            const email = localStorage.getItem('userEmail');
+            if (email) {
+                loadProfile(email);
+            }
             
             // Setup form submission
-            document.getElementById("profileForm").addEventListener("submit", async (e) => {
+            document.getElementById('profileForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 
-                const submitBtn = document.getElementById("submitBtn");
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+                if (!email) {
+                    alert('Please login first');
+                    return;
+                }
                 
-                const formData = {
+                const profileData = {
                     email: email,
-                    name: document.getElementById("name").value,
-                    phone: document.getElementById("phone").value,
-                    address: document.getElementById("address").value,
-                    interestingLanguage: document.getElementById("interestingLanguage").value,
-                    knownLanguage: document.getElementById("knownLanguage").value,
-                    level: document.getElementById("level").value
+                    name: document.getElementById('name').value,
+                    phone: document.getElementById('phone').value,
+                    address: document.getElementById('address').value,
+                    interestingLanguage: document.getElementById('interestingLanguage').value,
+                    knownLanguage: document.getElementById('knownLanguage').value,
+                    level: document.getElementById('level').value
                 };
-                
-                try {
-                    // Simulate API call with animation
-                    await new Promise(resolve => setTimeout(resolve, 1500));
-                    
-                    // In a real app, you would use fetch:
-                    // const response = await fetch("/save-profile", {
-                    //     method: "POST",
-                    //     headers: { "Content-Type": "application/json" },
-                    //     body: JSON.stringify(formData)
-                    // });
-                    // const result = await response.json();
-                    
-                    // For demo purposes:
-                    const result = { success: true, message: "Profile saved successfully!" };
-                    
-                    showFancyAlert(result.message, "success");
-                    
-                    // Animate success
-                    gsap.to(".container", {
-                        duration: 0.5,
-                        y: -10,
-                        boxShadow: "0 20px 40px rgba(108, 92, 231, 0.6)",
-                        repeat: 1,
-                        yoyo: true,
-                        ease: "power1.inOut"
-                    });
-                    
-                } catch (error) {
-                    console.error("Error saving profile:", error);
-                    showFancyAlert("Failed to save profile", "error");
-                } finally {
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<span class="btn-text">Save Profile</span><i class="fas fa-paper-plane btn-icon"></i>';
-                }
-            });
-        });
 
-        function createParticles() {
-            const particlesContainer = document.getElementById("particles");
-            const particleCount = 15;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement("div");
-                particle.classList.add("particle");
-                
-                // Random properties
-                const size = Math.random() * 10 + 5;
-                const posX = Math.random() * 100;
-                const posY = Math.random() * 100;
-                const delay = Math.random() * 10;
-                const duration = Math.random() * 15 + 10;
-                const opacity = Math.random() * 0.4 + 0.1;
-                
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.left = `${posX}%`;
-                particle.style.top = `${posY}%`;
-                particle.style.opacity = opacity;
-                particle.style.animationDelay = `${delay}s`;
-                particle.style.animationDuration = `${duration}s`;
-                
-                particlesContainer.appendChild(particle);
-            }
-        }
-
-        function updateProgressBar() {
-            const inputs = document.querySelectorAll("input, select");
-            let filledCount = 0;
-            
-            inputs.forEach(input => {
-                if (input.value.trim() !== "") {
-                    filledCount++;
-                }
-            });
-            
-            const progress = (filledCount / inputs.length) * 100;
-            document.getElementById("progressBar").style.width = `${progress}%`;
-            
-            // Change color based on progress
-            if (progress < 30) {
-                document.getElementById("progressBar").style.background = "#ff7675";
-            } else if (progress < 70) {
-                document.getElementById("progressBar").style.background = "#fdcb6e";
-            } else {
-                document.getElementById("progressBar").style.background = "linear-gradient(90deg, var(--accent), var(--primary))";
-            }
-        }
-
-        async function loadProfile(email) {
-            try {
-                // Simulate API call with animation
-                await new Promise(resolve => setTimeout(resolve, 800));
-                
-                // In a real app, you would use fetch:
-                // const response = await fetch(`/get-profile?email=${encodeURIComponent(email)}`);
-                // const data = await response.json();
-                
-                // For demo purposes:
-                const data = {
-                    success: true,
-                    profile: {
-                        name: "John Doe",
-                        phone: "123-456-7890",
-                        address: "123 Main St",
-                        interestingLanguage: "JavaScript",
-                        knownLanguage: "Python",
-                        level: "Intermediate"
+                fetch('/save-profile', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(profileData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showFancyAlert('Profile saved successfully!', 'success');
+                        setTimeout(() => {
+                            window.location.href = 'dashboard.html';
+                        }, 1500);
+                    } else {
+                        showFancyAlert('Error: ' + data.message, 'error');
                     }
-                };
-                
-                if (data.success && data.profile) {
-                    // Animate the form filling
-                    gsap.to("#name", { duration: 0.5, value: data.profile.name || "", ease: "power2.out" });
-                    gsap.to("#phone", { duration: 0.5, value: data.profile.phone || "", ease: "power2.out", delay: 0.1 });
-                    gsap.to("#address", { duration: 0.5, value: data.profile.address || "", ease: "power2.out", delay: 0.2 });
-                    
-                    document.getElementById("interestingLanguage").value = data.profile.interestingLanguage || "Python";
-                    document.getElementById("knownLanguage").value = data.profile.knownLanguage || "Python";
-                    document.getElementById("level").value = data.profile.level || "Beginner";
-                    
-                    // Update progress bar after animation
-                    setTimeout(updateProgressBar, 800);
-                }
-            } catch (error) {
-                console.error("Error loading profile:", error);
-            }
-        }
-
-        function showFancyAlert(message, type) {
-            const alert = document.createElement("div");
-            alert.className = `fancy-alert ${type}`;
-            alert.innerHTML = `
-                <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
-                <span>${message}</span>
-            `;
-            
-            document.body.appendChild(alert);
-            
-            // Animate in
-            gsap.from(alert, {
-                duration: 0.5,
-                y: 50,
-                opacity: 0,
-                ease: "back.out(1.7)"
-            });
-            
-            // Animate out after delay
-            setTimeout(() => {
-                gsap.to(alert, {
-                    duration: 0.5,
-                    y: -50,
-                    opacity: 0,
-                    ease: "back.in(1.7)",
-                    onComplete: () => alert.remove()
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showFancyAlert('An error occurred while saving the profile.', 'error');
                 });
-            }, 3000);
-            
-            // Add some styles for the alert
-            const style = document.createElement("style");
-            style.textContent = `
-                .fancy-alert {
-                    position: fixed;
-                    bottom: 30px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    padding: 15px 25px;
-                    border-radius: 10px;
-                    color: white;
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                    z-index: 1000;
-                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-                    font-weight: 500;
+            });
+
+            function createParticles() {
+                const particlesContainer = document.getElementById("particles");
+                const particleCount = 15;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement("div");
+                    particle.classList.add("particle");
+                    
+                    // Random properties
+                    const size = Math.random() * 10 + 5;
+                    const posX = Math.random() * 100;
+                    const posY = Math.random() * 100;
+                    const delay = Math.random() * 10;
+                    const duration = Math.random() * 15 + 10;
+                    const opacity = Math.random() * 0.4 + 0.1;
+                    
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    particle.style.left = `${posX}%`;
+                    particle.style.top = `${posY}%`;
+                    particle.style.opacity = opacity;
+                    particle.style.animationDelay = `${delay}s`;
+                    particle.style.animationDuration = `${duration}s`;
+                    
+                    particlesContainer.appendChild(particle);
                 }
-                .fancy-alert.success {
-                    background: linear-gradient(135deg, #00b894, #55efc4);
+            }
+
+            function updateProgressBar() {
+                const inputs = document.querySelectorAll("input, select");
+                let filledCount = 0;
+                
+                inputs.forEach(input => {
+                    if (input.value.trim() !== "") {
+                        filledCount++;
+                    }
+                });
+                
+                const progress = (filledCount / inputs.length) * 100;
+                document.getElementById("progressBar").style.width = `${progress}%`;
+                
+                // Change color based on progress
+                if (progress < 30) {
+                    document.getElementById("progressBar").style.background = "#ff7675";
+                } else if (progress < 70) {
+                    document.getElementById("progressBar").style.background = "#fdcb6e";
+                } else {
+                    document.getElementById("progressBar").style.background = "linear-gradient(90deg, #fd79a8, #6c5ce7)";
                 }
-                .fancy-alert.error {
-                    background: linear-gradient(135deg, #d63031, #ff7675);
+            }
+
+            async function loadProfile(email) {
+                try {
+                    const response = await fetch(`/get-profile?email=${encodeURIComponent(email)}`);
+                    const data = await response.json();
+                    
+                    if (data.success && data.profile) {
+                        // Animate the form filling
+                        gsap.to("#name", { duration: 0.5, value: data.profile.name || "", ease: "power2.out" });
+                        document.getElementById("name").value = data.profile.name || "";
+                        
+                        gsap.to("#phone", { duration: 0.5, value: data.profile.phone || "", ease: "power2.out", delay: 0.1 });
+                        document.getElementById("phone").value = data.profile.phone || "";
+                        
+                        gsap.to("#address", { duration: 0.5, value: data.profile.address || "", ease: "power2.out", delay: 0.2 });
+                        document.getElementById("address").value = data.profile.address || "";
+                        
+                        document.getElementById("interestingLanguage").value = data.profile.interestingLanguage || "Python";
+                        document.getElementById("knownLanguage").value = data.profile.knownLanguage || "Python";
+                        document.getElementById("level").value = data.profile.level || "Beginner";
+                        
+                        // Update progress bar after animation
+                        setTimeout(updateProgressBar, 800);
+                    }
+                } catch (error) {
+                    console.error("Error loading profile:", error);
                 }
-                .fancy-alert i {
-                    font-size: 20px;
-                }
-            `;
-            document.head.appendChild(style);
-        }
+            }
+
+            function showFancyAlert(message, type) {
+                const alert = document.createElement("div");
+                alert.className = `fancy-alert ${type}`;
+                alert.innerHTML = `
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                    <span>${message}</span>
+                `;
+                
+                document.body.appendChild(alert);
+                
+                // Animate in
+                gsap.from(alert, {
+                    duration: 0.5,
+                    y: 50,
+                    opacity: 0,
+                    ease: "back.out(1.7)"
+                });
+                
+                // Animate out after delay
+                setTimeout(() => {
+                    gsap.to(alert, {
+                        duration: 0.5,
+                        y: -50,
+                        opacity: 0,
+                        ease: "back.in(1.7)",
+                        onComplete: () => alert.remove()
+                    });
+                }, 3000);
+                
+                // Add some styles for the alert
+                const style = document.createElement("style");
+                style.textContent = `
+                    .fancy-alert {
+                        position: fixed;
+                        bottom: 30px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        padding: 15px 25px;
+                        border-radius: 10px;
+                        color: white;
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                        z-index: 1000;
+                        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                        font-weight: 500;
+                    }
+                    .fancy-alert.success {
+                        background: linear-gradient(135deg, #00b894, #55efc4);
+                    }
+                    .fancy-alert.error {
+                        background: linear-gradient(135deg, #d63031, #ff7675);
+                    }
+                    .fancy-alert i {
+                        font-size: 20px;
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        });
     </script>
 </body>
 </html>

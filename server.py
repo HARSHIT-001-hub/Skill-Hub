@@ -1,16 +1,17 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 import sqlite3
 import os
 from flask_cors import CORS
 
 app = Flask(__name__, template_folder='templates')
+app.secret_key = "super_secret_key"
 CORS(app)
 
 # Database initialization
 def init_db():
     if not os.path.exists("databases"):
         os.makedirs("databases")
-    
+
     conn = sqlite3.connect("skillhub_users.db")
     cursor = conn.cursor()
     cursor.execute("""
@@ -29,7 +30,10 @@ init_db()
 def create_user_db(email):
     safe_email = email.replace('@', '_').replace('.', '_')
     db_path = f"databases/user_{safe_email}.db"
-    
+
+    if not os.path.exists("databases"):
+        os.makedirs("databases")
+
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     cursor.execute("""
@@ -49,37 +53,65 @@ def create_user_db(email):
 
 # Routes
 @app.route("/")
+@app.route("/index.html")
 def home():
     return render_template("index.html")
-
 @app.route("/register", methods=["POST"])
 def register():
+    conn = None
     try:
         data = request.get_json()
+        app.logger.info(f"Register data received: {data}")
+
+        if not data or not data.get("email") or not data.get("password") or not data.get("name"):
+            return jsonify({"success": False, "message": "Name, email and password are required!"}), 400
+
         conn = sqlite3.connect("skillhub_users.db")
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO users (email, password) VALUES (?, ?)", 
-                      (data["email"], data["password"]))
+
+        # Add 'name' column if it doesn't exist
+        cursor.execute("PRAGMA table_info(users)")
+        columns = [col[1] for col in cursor.fetchall()]
+        if 'name' not in columns:
+            cursor.execute("ALTER TABLE users ADD COLUMN name TEXT")
+
+        cursor.execute("INSERT INTO users (email, password, name) VALUES (?, ?, ?)", 
+                       (data["email"], data["password"], data["name"]))
         conn.commit()
+
         create_user_db(data["email"])
+
         return jsonify({"success": True, "message": "Registration successful!"})
-    except sqlite3.IntegrityError:
+    
+    except sqlite3.IntegrityError as ie:
+        app.logger.warning(f"Email already exists: {str(ie)}")
         return jsonify({"success": False, "message": "Email already exists!"}), 400
+
     except Exception as e:
-        return jsonify({"success": False, "message": str(e)}), 500
+        import traceback
+        traceback.print_exc()
+        app.logger.error(f"Registration error: {str(e)}")
+        return jsonify({"success": False, "message": "Registration failed. Please try again."}), 500
+    
     finally:
-        conn.close()
+        if conn:
+            conn.close()
 
 @app.route("/login", methods=["POST"])
 def login():
+    conn = None
     try:
         data = request.get_json()
+        if not data or not data.get("email") or not data.get("password"):
+            return jsonify({"success": False, "message": "Email and password are required!"}), 400
+
         conn = sqlite3.connect("skillhub_users.db")
         cursor = conn.cursor()
         cursor.execute("SELECT password FROM users WHERE email = ?", (data["email"],))
         user = cursor.fetchone()
-        
+
         if user and user[0] == data["password"]:
+            session['email'] = data["email"]
             return jsonify({
                 "success": True,
                 "message": "Login successful!",
@@ -88,75 +120,48 @@ def login():
         else:
             return jsonify({"success": False, "message": "Invalid credentials!"}), 401
     except Exception as e:
-        return jsonify({"success": False, "message": str(e)}), 500
+        app.logger.error(f"Login error: {str(e)}")
+        return jsonify({"success": False, "message": f"Login failed: {str(e)}"}), 500
     finally:
-        conn.close()
+        if conn:
+            conn.close()
 
-@app.route("/save-profile", methods=["POST"])
-def save_profile():
-    try:
-        data = request.get_json()
-        if not data.get("email"):
-            return jsonify({"success": False, "message": "Email is required!"}), 400
-            
-        db_path = create_user_db(data["email"])
-        conn = sqlite3.connect(db_path)
-        cursor = conn.cursor()
-        
-        cursor.execute("""
-            INSERT INTO profile (name, phone, address, interesting_language, known_language, level)
-            VALUES (?, ?, ?, ?, ?, ?)
-        """, (
-            data["name"],
-            data["phone"],
-            data["address"],
-            data["interestingLanguage"],
-            data["knownLanguage"],
-            data["level"]
-        ))
-        
-        conn.commit()
-        return jsonify({"success": True, "message": "Profile saved successfully!"})
-    except Exception as e:
-        return jsonify({"success": False, "message": str(e)}), 500
-    finally:
-        conn.close()
+@app.route("/logout")
+def logout():
+    session.pop('email', None)
+    return redirect(url_for('home'))
 
-@app.route("/get-profile", methods=["GET"])
-def get_profile():
-    try:
-        email = request.args.get("email")
-        if not email:
-            return jsonify({"success": False, "message": "Email is required!"}), 400
-            
-        db_path = create_user_db(email)
-        conn = sqlite3.connect(db_path)
-        cursor = conn.cursor()
-        cursor.execute("SELECT * FROM profile ORDER BY id DESC LIMIT 1")
-        profile = cursor.fetchone()
-        
-        if profile:
-            return jsonify({
-                "success": True,
-                "profile": {
-                    "name": profile[1],
-                    "phone": profile[2],
-                    "address": profile[3],
-                    "interestingLanguage": profile[4],
-                    "knownLanguage": profile[5],
-                    "level": profile[6]
-                }
-            })
-        else:
-            return jsonify({"success": False, "message": "Profile not found!"}), 404
-    except Exception as e:
-        return jsonify({"success": False, "message": str(e)}), 500
-    finally:
-        conn.close()
+@app.route("/dashboard.html")
+def dashboard():
+    if 'email' in session and 'name' in session:
+        return render_template("dashboard.html", email=session['email'], name=session['name'])
+    else:
+        return redirect(url_for('index1'))
+# Static pages
+@app.route('/aboutus.html')
+def about():
+    return render_template('aboutus.html')
+
+@app.route('/contactus.html')
+def contact():
+    return render_template('contactus.html')
+
+@app.route('/form.html')
+def form():
+    return render_template('form.html')
+
+@app.route('/profile.html')
+def profile():
+    return render_template('profile.html')
+
+@app.route('/index1.html')
+def index1():
+    return render_template('index1.html')
 
 # Debug endpoint
 @app.route("/debug/user/<email>")
 def debug_user(email):
+    conn = None
     try:
         conn = sqlite3.connect("skillhub_users.db")
         cursor = conn.cursor()
@@ -169,26 +174,10 @@ def debug_user(email):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     finally:
-        conn.close()
-@app.route('/aboutus.html')
-def about():
-    return render_template('aboutus.html')
-
-@app.route('/contactus.html')
-def contact():
-    return render_template('contactus.html')
-
-@app.route('/dashboard.html')
-def dashboard():
-    return render_template('dashboard.html')
-
-@app.route('/form.html')
-def form():
-    return render_template('form.html')
-
-@app.route('/profile.html', methods=['GET'])
-def profile():
-    return render_template('profile.html')
+        if conn:
+            conn.close()
 
 if __name__ == '__main__':
+    if not os.path.exists("databases"):
+        os.makedirs("databases")
     app.run(debug=True)

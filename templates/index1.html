@@ -842,6 +842,17 @@
                 box-shadow: 0 0 20px rgba(108, 92, 231, 0.8);
             }
         }
+        .logout-btn {
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .logout-btn:hover {
+      background-color: darkred;
+    }
     </style>
 </head>
 <body>
@@ -859,9 +870,8 @@
                 </ul>
             </nav>
             <div class="auth-buttons">
-                <a href="form.html" class="btn">Log In</a>
-                <a href="form.html" class="btn">Sign Up</a>
-            </div>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+              </div>
         </div>
     </header>
     
@@ -1115,6 +1125,10 @@
                 skill.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
             });
         });
+        function logout() {
+      alert("Logged out successfully!");
+      window.location.href = "index.html";
+    }
     </script>
 </body>
 </html>

@@ -1,125 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | Skill Hub</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <style>
-        body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-    background-color: #555;
-    color: #333;
-    scroll-behavior: smooth;
-}
-        .dashboard-container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #2c3e50;
-            padding: 15px;
-            color: white;
-        }
-        .header a {
-            color: white;
-            text-decoration: none;
-            font-size: 20px;
-            font-weight: bold;
-        }
-        .nav-links {
-            display: flex;
-            gap: 15px;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-        }
-        .content {
-            margin-top: 20px;
-        }
-        .card {
-            padding: 15px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-        .logout-btn {
-            background-color: red;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .logout-btn:hover {
-            background-color: darkred;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | Skill Hub</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='Styles.css') }}" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: #555;
+      color: #333;
+      scroll-behavior: smooth;
+    }
+    .dashboard-container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      background: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+    }
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #2c3e50;
+      padding: 15px;
+      color: white;
+    }
+    .header-container a {
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .header-container nav ul {
+      list-style: none;
+      display: flex;
+      gap: 15px;
+      margin: 0;
+      padding: 0;
+    }
+    .header-container nav ul li {
+      display: inline;
+    }
+    .header-container nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+    }
+    .card {
+      padding: 15px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+    .logout-btn {
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .logout-btn:hover {
+      background-color: darkred;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="header-container">
-            <div class="logo">
-                <a href="index.html">Skill Hub</a>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="aboutus.html">About Us</a></li>
-                    <li><a href="contactus.html">Contact Us</a></li>
-                    <li><a href="#community-text">Community</a></li>
-                </ul>
-            </nav>
-            <div class="auth-buttons">
-                <button class="logout-btn" onclick="logout()">Logout</button>
-            </div>
-        </div>
-    </header>
-    
-    <div class="dashboard-container">
-        <h2>Welcome to Your Dashboard</h2>
-        <div class="card" id="profile">
-            <h3>Your Profile</h3>
-            <p><strong>Name:</strong> John Doe</p>
-            <p><strong>Email:</strong> johndoe@example.com</p>
-            <p><strong>Skill Level:</strong> Intermediate</p>
-        </div>
-        <div class="card" id="courses">
-            <h3>Enrolled Courses</h3>
-            <ul>
-                <li>Python for Beginners</li>
-                <li>Web Development with JavaScript</li>
-                <li>Advanced Java Programming</li>
-            </ul>
-        </div>
-        <div class="card" id="community">
-            <h3>Community Discussions</h3>
-            <p>Join discussions with other learners and industry experts.</p>
-        </div>
-        <div class="card" id="settings">
-            <h3>Account Settings</h3>
-            <button class="logout-btn" onclick="logout()">Logout</button>
-        </div>
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <a href="index.html">Skill Hub</a>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="aboutus.html">About Us</a></li>
+          <li><a href="contactus.html">Contact Us</a></li>
+          <li><a href="#community-text">Community</a></li>
+        </ul>
+      </nav>
+      <div class="auth-buttons">
+        <button class="logout-btn" onclick="logout()">Logout</button>
+      </div>
     </div>
-    <script>
-        function logout() {
-            alert("Logged out successfully!");
-            window.location.href = "index.html";
-        }
-    </script>
+  </header>
+
+  <div class="dashboard-container">
+    <h2>Welcome, {{ name }}!</h2>
+
+    <div class="card" id="profile">
+      <h3>Your Profile</h3>
+      <p><strong>Name:</strong> {{ name }}</p>
+      <p><strong>Email:</strong> {{ email }}</p>
+      <p><strong>Skill Level:</strong> Intermediate</p>
+    </div>
+
+    <div class="card" id="courses">
+      <h3>Enrolled Courses</h3>
+      <ul>
+        <li>Python for Beginners</li>
+        <li>Web Development with JavaScript</li>
+        <li>Advanced Java Programming</li>
+      </ul>
+    </div>
+
+    <div class="card" id="community">
+      <h3>Community Discussions</h3>
+      <p>Join discussions with other learners and industry experts.</p>
+    </div>
+
+    <div class="card" id="settings">
+      <h3>Account Settings</h3>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <script>
+    function logout() {
+      alert("Logged out successfully!");
+      window.location.href = "index.html";
+    }
+  </script>
 </body>
 </html>

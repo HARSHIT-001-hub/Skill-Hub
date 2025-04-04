@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign Up | Log In</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='Styles.css') }}">
   <style>
     
     * {
@@ -313,172 +314,171 @@ nav ul li a:hover {
   </style>
 </head>
 <body>
-    <header>
-      <div class="header-container">
-          <div class="logo">
-              <a href="index.html">Skill Hub</a>
-          </div>
-          <center>
-          <nav>
-              <ul>
-                  <li><a href="index.html">Home</a></li>
-                  <li><a href="aboutus.html">About Us</a></li>
-                  <li><a href="contactus.html">Contact Us</a></li>
-                  <li><a href="#community-text">Community</a></li>
-              </ul>
-          </nav></center>
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <a href="index.html">Skill Hub</a>
       </div>
+      <center>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="aboutus.html">About Us</a></li>
+            <li><a href="contactus.html">Contact Us</a></li>
+            <li><a href="#community-text">Community</a></li>
+          </ul>
+        </nav>
+      </center>
+    </div>
   </header>
-  
-    <div class="wrapper">
-      <div class="title-text">
-        <div class="title login">
-          Account
-        </div>
-    </div>
-      <div class="form-container">
-        <div class="slide-controls">
-          <input type="radio" name="slide" id="login" checked>
-          <input type="radio" name="slide" id="signup">
-          <label for="login" class="slide login">Login</label>
-          <label for="signup" class="slide signup">SignUp</label>
-          <div class="slider-tab"></div>
-        </div>
-        <div class="form-inner">
-          <form id="login-form" action="profile.html" class="login">
-            <div class="field">
-                <input type="text" id="login-email" name="email" placeholder="Email Address" required>
-            </div>
-            <div class="field">
-                <input type="password" id="login-password" name="password" placeholder="Password" required>
-            </div>
-            <div class="pass-link">
-                <a href="#">Reset password?</a>
-            </div>
-            <div class="field btn">
-                <div class="btn-layer"></div>
-                <input type="submit" value="Login">
-            </div>
-            <div class="signup-link">
-                Don't Have Account? <a href="">Create A New</a>
-            </div>
-        </form>
-        
-          <form id="register-form" action="profile.html" class="signup">
-            <div class="field">
-                <input type="text" id="email" placeholder="Email Address" required>
-            </div>
-            <div class="field">
-                <input type="password" id="password" placeholder="Password" required>
-            </div>
-            <div class="field">
-                <input type="password" id="confirm-password" placeholder="Confirm Password" required>
-            </div>
-            <div class="field btn">
-              <div class="btn-layer"></div>
-              <input type="submit" value="SignUp">
-            </div>
-        </form>
-        </div>
+
+  <div class="wrapper">
+    <div class="title-text">
+      <div class="title login">
+        Account
       </div>
     </div>
-    <script>
-      const loginText = document.querySelector(".title-text .login");
-const loginForm = document.querySelector("form.login");
-const loginBtn = document.querySelector("label.login");
-const signupBtn = document.querySelector("label.signup");
-const signupLink = document.querySelector("form .signup-link a");
-signupBtn.onclick = (()=>{
- loginForm.style.marginLeft = "-50%";
- loginText.style.marginLeft = "-50%";
-});
-loginBtn.onclick = (()=>{
- loginForm.style.marginLeft = "0%";
- loginText.style.marginLeft = "0%";
-});
-signupLink.onclick = (()=>{
- signupBtn.click();
- return false;
-});
-document.addEventListener("DOMContentLoaded", function () {
-    console.log("Page Loaded - JavaScript Ready");
+    <div class="form-container">
+      <div class="slide-controls">
+        <input type="radio" name="slide" id="login" checked>
+        <input type="radio" name="slide" id="signup">
+        <label for="login" class="slide login">Login</label>
+        <label for="signup" class="slide signup">SignUp</label>
+        <div class="slider-tab"></div>
+      </div>
 
-    // Register form handling
-    const registerForm = document.getElementById("register-form");
-    if (registerForm) {
-        registerForm.addEventListener("submit", async function (event) {
-            event.preventDefault();
+      <div class="form-inner">
+        <!-- LOGIN FORM -->
+        <form id="login-form" class="login">
+          <div class="field">
+            <input type="text" id="login-email" name="email" placeholder="Email Address" required>
+          </div>
+          <div class="field">
+            <input type="password" id="login-password" name="password" placeholder="Password" required>
+          </div>
+          <div class="pass-link">
+            <a href="#">Reset password?</a>
+          </div>
+          <div class="field btn">
+            <div class="btn-layer"></div>
+            <input type="submit" value="Login">
+          </div>
+          <div class="signup-link">
+            Don't Have Account? <a href="">Create A New</a>
+          </div>
+        </form>
 
-            const email = document.getElementById("email").value.trim();
-            const password = document.getElementById("password").value.trim();
+        <form id="register-form" class="signup">
+          <div class="field">
+            <input type="text" id="register-name" placeholder="Full Name" required>
+          </div>
+          <div class="field">
+            <input type="text" id="register-email" placeholder="Email Address" required>
+          </div>
+          <div class="field">
+            <input type="password" id="register-password" placeholder="Password" required>
+          </div>
+          <div class="field">
+            <input type="password" id="confirm-password" placeholder="Confirm Password" required>
+          </div>
+          <div class="field btn">
+            <div class="btn-layer"></div>
+            <input type="submit" value="SignUp">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
-            if (!email || !password) {
-                alert("Please enter both email and password.");
-                return;
+  <script>
+    const loginText = document.querySelector(".title-text .login");
+    const loginForm = document.querySelector("form.login");
+    const loginBtn = document.querySelector("label.login");
+    const signupBtn = document.querySelector("label.signup");
+    const signupLink = document.querySelector("form .signup-link a");
+
+    signupBtn.onclick = () => {
+      loginForm.style.marginLeft = "-50%";
+      loginText.style.marginLeft = "-50%";
+    };
+    loginBtn.onclick = () => {
+      loginForm.style.marginLeft = "0%";
+      loginText.style.marginLeft = "0%";
+    };
+    signupLink.onclick = () => {
+      signupBtn.click();
+      return false;
+    };
+
+    document.addEventListener("DOMContentLoaded", function () {
+      console.log("Page Loaded - JavaScript Ready");
+
+      // Register form
+      document.getElementById("register-form").addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  const name = document.getElementById("register-name").value;
+  const email = document.getElementById("register-email").value;
+  const password = document.getElementById("register-password").value;
+  const confirmPassword = document.getElementById("confirm-password").value;
+
+  if (password !== confirmPassword) {
+    alert("Passwords do not match!");
+    return;
+  }
+
+  const response = await fetch("/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name, email, password }),
+  });
+
+  const data = await response.json();
+
+  if (data.success) {
+    alert("Registration successful!");
+    window.location.href = "dashboard.html";
+  } else {
+    alert(data.message);
+  }
+});
+
+      // Login form
+      const loginForm = document.getElementById("login-form");
+      if (loginForm) {
+        loginForm.addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const email = document.getElementById("login-email").value.trim();
+          const password = document.getElementById("login-password").value.trim();
+
+          try {
+            console.log("Attempting login with:", email);
+
+            const response = await fetch("/login", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ email, password })
+            });
+
+            const data = await response.json();
+            console.log("Login response:", data);
+
+            if (data.success) {
+              localStorage.setItem("userEmail", email);
+              window.location.href = "dashboard.html";
+            } else {
+              alert(data.message);
             }
-
-            console.log("Sending Registration Data:", { email, password });
-
-            try {
-                const response = await fetch("/register", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ email, password })
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-
-                const data = await response.json();
-                console.log("Received Response:", data);
-
-                alert(data.message);
-                if (data.success) {
-                    window.location.href = "profile.html"; // Redirect after success
-                }
-            } catch (error) {
-                console.error("Error:", error);
-                alert("Registration failed. Please try again.");
-            }
+          } catch (error) {
+            console.error("Login error:", error);
+            alert("Login failed. Please try again.");
+          }
         });
-    } else {
-        console.error("Register form not found!");
-    }
-
-    // Login form handling
-    // In your login page's JavaScript
-document.getElementById("loginForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    
-    try {
-        console.log("Attempting login with:", email); // Debug log
-        
-        const response = await fetch("/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password })
-        });
-        
-        const data = await response.json();
-        console.log("Login response:", data); // Debug log
-        
-        if (data.success) {
-            localStorage.setItem("userEmail", email);
-            console.log("Stored email in localStorage:", localStorage.getItem("userEmail")); // Verify storage
-            window.location.href = "dashboard.html";
-        } else {
-            alert(data.message);
-        }
-    } catch (error) {
-        console.error("Login error:", error);
-        alert("Login failed. Please try again.");
-    }
-}); 
-});
-    </script>
+      }
+    });
+  </script>
 </body>
 </html>
