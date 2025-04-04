@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expert Teachers | Learn from the Best</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="F:\Skill hub for sinor\New folder\Skill-Hub\static\Styles.css"> <!-- Link to external CSS -->
+    <style>
+                /* Additional styles for the teachers page */
+                .category-tabs {
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            padding: 0 20px;
+        }
+        
+        .tabs-container {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            scrollbar-width: thin;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .tab:hover {
+            background: rgba(108, 92, 231, 0.3);
+        }
+        
+        .tab.active {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            font-weight: 600;
+        }
+        
+        .teachers-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .teacher-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .teacher-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .teacher-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .teacher-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .teacher-card:hover .teacher-image img {
+            transform: scale(1.1);
+        }
+        
+        .teacher-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 5px 10px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .teacher-info {
+            padding: 20px;
+        }
+        
+        .teacher-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: white;
+        }
+        
+        .specialization {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .skills span {
+            background: rgba(108, 92, 231, 0.2);
+            color: var(--secondary);
+            padding: 5px 10px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+        }
+        
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        .rating span {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        .profile-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-btn:hover {
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+            transform: translateY(-3px);
+        }
+        
+        /* Testimonials styles */
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .testimonial-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .quote-icon {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .testimonial-content p {
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .testimonial-author h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        
+        .testimonial-author p {
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+        
+        /* Contact form styles */
+        .contact-form {
+            max-width: 600px;
+            margin: 30px auto 0;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .form-group select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 15px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .teachers-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .testimonials-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs-container {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding-bottom: 15px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .teacher-card {
+                max-width: 100%;
+            }
+            
+            .contact-form {
+                padding: 0 15px;
+            }
+        }
+                /* Additional styles for the teachers page */
+                .category-tabs {
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            padding: 0 20px;
+        }
+        
+        .tabs-container {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            scrollbar-width: thin;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .tab:hover {
+            background: rgba(108, 92, 231, 0.3);
+        }
+        
+        .tab.active {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            font-weight: 600;
+        }
+        
+        .teachers-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .teacher-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .teacher-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .teacher-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .teacher-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .teacher-card:hover .teacher-image img {
+            transform: scale(1.1);
+        }
+        
+        .teacher-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 5px 10px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .teacher-info {
+            padding: 20px;
+        }
+        
+        .teacher-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: white;
+        }
+        
+        .specialization {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .skills span {
+            background: rgba(108, 92, 231, 0.2);
+            color: var(--secondary);
+            padding: 5px 10px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+        }
+        
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        .rating span {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        .profile-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-btn:hover {
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+            transform: translateY(-3px);
+        }
+        
+        /* Testimonials styles */
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .testimonial-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .quote-icon {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .testimonial-content p {
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .testimonial-author h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        
+        .testimonial-author p {
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+        
+        /* Contact form styles */
+        .contact-form {
+            max-width: 600px;
+            margin: 30px auto 0;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .form-group select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 15px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .teachers-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .testimonials-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs-container {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding-bottom: 15px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .teacher-card {
+                max-width: 100%;
+            }
+            
+            .contact-form {
+                padding: 0 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="#">EduMasters</a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#teachers">Teachers</a></li>
+                    <li><a href="#categories">Categories</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="#" class="btn">Login</a>
+                <a href="#" class="btn">Register</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="welcome-section">
+        <div class="particles" id="particles-js"></div>
+        <div class="welcome-content">
+            <div class="welcome-text gradient-border">
+                <h2>Learn from Industry Experts</h2>
+                <p>Discover top-rated teachers in various technology fields. Whether you're a beginner or looking to advance your skills, our certified instructors will guide you through your learning journey.</p>
+                <a href="#teachers" class="cta-button">Browse Teachers</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teachers by Category Section -->
+    <section class="skills-section" id="teachers">
+        <h2 class="section-title">Our Expert Teachers</h2>
+        
+        <div class="category-tabs">
+            <div class="tabs-container">
+                <div class="tab active" data-category="all">All</div>
+                <div class="tab" data-category="web">Web Development</div>
+                <div class="tab" data-category="data">Data Science</div>
+                <div class="tab" data-category="mobile">Mobile Development</div>
+                <div class="tab" data-category="design">UI/UX Design</div>
+                <div class="tab" data-category="java">Java</div>
+                <div class="tab" data-category="python">Python</div>
+            </div>
+        </div>
+        
+        <div class="teachers-container">
+            <!-- Web Development Teachers -->
+            <div class="teacher-card web" data-category="web">
+                <div class="teacher-image">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Teacher">
+                    <div class="teacher-badge">Web Expert</div>
+                </div>
+                <div class="teacher-info">
+                    <h3>Michael Johnson</h3>
+                    <p class="specialization">Full Stack Developer</p>
+                    <div class="skills">
+                        <span>JavaScript</span>
+                        <span>React</span>
+                        <span>Node.js</span>
+                    </div>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>4.7 (128)</span>
+                    </div>
+                    <a href="#" class="profile-btn">View Profile</a>
+                </div>
+            </div>
+            
+            <!-- Data Science Teachers -->
+            <div class="teacher-card data" data-category="data">
+                <div class="teacher-image">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Teacher">
+                    <div class="teacher-badge">Data Scientist</div>
+                </div>
+                <div class="teacher-info">
+                    <h3>Sarah Williams</h3>
+                    <p class="specialization">Machine Learning Engineer</p>
+                    <div class="skills">
+                        <span>Python</span>
+                        <span>TensorFlow</span>
+                        <span>SQL</span>
+                    </div>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>5.0 (96)</span>
+                    </div>
+                    <a href="#" class="profile-btn">View Profile</a>
+                </div>
+            </div>
+            
+            <!-- Mobile Development Teachers -->
+            <div class="teacher-card mobile" data-category="mobile">
+                <div class="teacher-image">
+                    <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Teacher">
+                    <div class="teacher-badge">Mobile Expert</div>
+                </div>
+                <div class="teacher-info">
+                    <h3>David Kim</h3>
+                    <p class="specialization">Android & iOS Developer</p>
+                    <div class="skills">
+                        <span>Kotlin</span>
+                        <span>Swift</span>
+                        <span>Flutter</span>
+                    </div>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>4.3 (87)</span>
+                    </div>
+                    <a href="#" class="profile-btn">View Profile</a>
+                </div>
+            </div>
+            
+            <!-- UI/UX Design Teachers -->
+            <div class="teacher-card design" data-category="design">
+                <div class="teacher-image">
+                    <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Teacher">
+                    <div class="teacher-badge">Design Expert</div>
+                </div>
+                <div class="teacher-info">
+                    <h3>Emma Rodriguez</h3>
+                    <p class="specialization">UI/UX Designer</p>
+                    <div class="skills">
+                        <span>Figma</span>
+                        <span>Adobe XD</span>
+                        <span>User Research</span>
+                    </div>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>5.0 (112)</span>
+                    </div>
+                    <a href="#" class="profile-btn">View Profile</a>
+                </div>
+            </div>
+            
+            <!-- Java Teachers -->
+            <div class="teacher-card java" data-category="java">
+                <div class="teacher-image">
+                    <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Teacher">
+                    <div class="teacher-badge">Java Expert</div>
+                </div>
+                <div class="teacher-info">
+                    <h3>Robert Chen</h3>
+                    <p class="specialization">Java Architect</p>
+                    <div class="skills">
+                        <span>Java</span>
+                        <span>Spring Boot</span>
+                        <span>Microservices</span>
+                    </div>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>4.8 (145)</span>
+                    </div>
+                    <a href="#" class="profile-btn">View Profile</a>
+                </div>
+            </div>
+            
+            <!-- Python Teachers -->
+            <div class="teacher-card python" data-category="python">
+                <div class="teacher-image">
+                    <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Teacher">
+                    <div class="teacher-badge">Python Expert</div>
+                </div>
+                <div class="teacher-info">
+                    <h3>Lisa Patel</h3>
+                    <p class="specialization">Python Developer</p>
+                    <div class="skills">
+                        <span>Python</span>
+                        <span>Django</span>
+                        <span>Flask</span>
+                    </div>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>5.0 (203)</span>
+                    </div>
+                    <a href="#" class="profile-btn">View Profile</a>
+                </div>
+            </div>
+            
+            <!-- Additional Teachers -->
+            <div class="teacher-card web" data-category="web">
+                <div class="teacher-image">
+                    <img src="https://randomuser.me/api/portraits/women/52.jpg" alt="Teacher">
+                    <div class="teacher-badge">Frontend Expert</div>
+                </div>
+                <div class="teacher-info">
+                    <h3>Olivia Martinez</h3>
+                    <p class="specialization">Frontend Developer</p>
+                    <div class="skills">
+                        <span>React</span>
+                        <span>Vue.js</span>
+                        <span>CSS</span>
+                    </div>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>4.2 (76)</span>
+                    </div>
+                    <a href="#" class="profile-btn">View Profile</a>
+                </div>
+            </div>
+            
+            <div class="teacher-card data" data-category="data">
+                <div class="teacher-image">
+                    <img src="https://randomuser.me/api/portraits/men/82.jpg" alt="Teacher">
+                    <div class="teacher-badge">Data Analyst</div>
+                </div>
+                <div class="teacher-info">
+                    <h3>James Wilson</h3>
+                    <p class="specialization">Data Analyst</p>
+                    <div class="skills">
+                        <span>SQL</span>
+                        <span>Tableau</span>
+                        <span>Power BI</span>
+                    </div>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>4.6 (92)</span>
+                    </div>
+                    <a href="#" class="profile-btn">View Profile</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="community-section" id="categories">
+        <div class="community-bg"></div>
+        <div class="community-content">
+            <div class="community-box gradient-border">
+                <h3>Explore Our Categories</h3>
+                <p>Browse through our comprehensive list of technology categories to find the perfect teacher for your learning needs.</p>
+            </div>
+            
+            <div class="skills-list">
+                <div class="skill" data-category="web">
+                    <i class="fas fa-code fa-3x"></i>
+                    <p>Web Development</p>
+                </div>
+                <div class="skill" data-category="data">
+                    <i class="fas fa-database fa-3x"></i>
+                    <p>Data Science</p>
+                </div>
+                <div class="skill" data-category="mobile">
+                    <i class="fas fa-mobile-alt fa-3x"></i>
+                    <p>Mobile Development</p>
+                </div>
+                <div class="skill" data-category="design">
+                    <i class="fas fa-paint-brush fa-3x"></i>
+                    <p>UI/UX Design</p>
+                </div>
+                <div class="skill" data-category="java">
+                    <i class="fab fa-java fa-3x"></i>
+                    <p>Java</p>
+                </div>
+                <div class="skill" data-category="python">
+                    <i class="fab fa-python fa-3x"></i>
+                    <p>Python</p>
+                </div>
+                <div class="skill" data-category="cloud">
+                    <i class="fas fa-cloud fa-3x"></i>
+                    <p>Cloud Computing</p>
+                </div>
+                <div class="skill" data-category="ai">
+                    <i class="fas fa-robot fa-3x"></i>
+                    <p>Artificial Intelligence</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="skills-section" id="testimonials">
+        <h2 class="section-title">Student Testimonials</h2>
+        
+        <div class="testimonials-container">
+            <div class="testimonial-card hover-3d">
+                <div class="testimonial-content">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p>"Michael's JavaScript course completely transformed my understanding of frontend development. His real-world examples made complex concepts easy to grasp."</p>
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Student">
+                    <div>
+                        <h4>Jennifer Lee</h4>
+                        <p>Web Development Student</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card hover-3d">
+                <div class="testimonial-content">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p>"Sarah's approach to teaching machine learning is exceptional. She breaks down complex algorithms into understandable chunks with practical applications."</p>
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Student">
+                    <div>
+                        <h4>Thomas Baker</h4>
+                        <p>Data Science Student</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card hover-3d">
+                <div class="testimonial-content">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p>"Emma's UI/UX design course gave me the confidence to pursue a career in design. Her feedback was always constructive and helped me improve dramatically."</p>
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Student">
+                    <div>
+                        <h4>Sophia Garcia</h4>
+                        <p>Design Student</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="community-section" id="contact">
+        <div class="community-bg"></div>
+        <div class="community-content">
+            <div class="community-box gradient-border">
+                <h3>Ready to Start Learning?</h3>
+                <p>Contact us to find the perfect teacher for your needs or to join our community of expert instructors.</p>
+                
+                <form class="contact-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <select required>
+                            <option value="" disabled selected>Select Category</option>
+                            <option value="web">Web Development</option>
+                            <option value="data">Data Science</option>
+                            <option value="mobile">Mobile Development</option>
+                            <option value="design">UI/UX Design</option>
+                            <option value="java">Java</option>
+                            <option value="python">Python</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Your Message" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="cta-button">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="waves"></div>
+        <div class="footer-content">
+            <div class="footer-logo">EduMasters</div>
+            <p>Connecting students with the best teachers in technology.</p>
+            
+            <div class="shortcut-links">
+                <a href="#">Home</a>
+                <a href="#teachers">Teachers</a>
+                <a href="#categories">Categories</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#contact">Contact</a>
+            </div>
+            
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2023 EduMasters. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Create particles for the hero section
+        function createParticles() {
+            const particlesContainer = document.querySelector('.particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size between 5px and 15px
+                const size = Math.random() * 10 + 5;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation duration between 10s and 20s
+                const duration = Math.random() * 10 + 10;
+                particle.style.animationDuration = `${duration}s`;
+                
+                // Random delay
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                // Random opacity
+                particle.style.opacity = Math.random() * 0.5 + 0.3;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Scroll to top button functionality
+        function setupScrollToTop() {
+            const scrollButton = document.querySelector('.scroll-to-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    scrollButton.classList.add('visible');
+                } else {
+                    scrollButton.classList.remove('visible');
+                }
+            });
+            
+            scrollButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+        
+        // Teacher category filtering
+        function setupCategoryFiltering() {
+            const tabs = document.querySelectorAll('.tab');
+            const teacherCards = document.querySelectorAll('.teacher-card');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Update active tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    const category = tab.dataset.category;
+                    
+                    // Filter teacher cards
+                    teacherCards.forEach(card => {
+                        if (category === 'all' || card.dataset.category === category) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Also make skills clickable to filter
+            const skills = document.querySelectorAll('.skill');
+            skills.forEach(skill => {
+                skill.addEventListener('click', () => {
+                    const category = skill.dataset.category;
+                    
+                    // Update active tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    document.querySelector(`.tab[data-category="${category}"]`).classList.add('active');
+                    
+                    // Filter teacher cards
+                    teacherCards.forEach(card => {
+                        if (card.dataset.category === category) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        }
+        
+        // Smooth scrolling for anchor links
+        function setupSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+        
+        // Initialize everything when the DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            setupScrollToTop();
+            setupCategoryFiltering();
+            setupSmoothScrolling();
+        });
+    </script>
+
+    <style>
+        /* Additional styles for the teachers page */
+        .category-tabs {
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            padding: 0 20px;
+        }
+        
+        .tabs-container {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            scrollbar-width: thin;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .tab:hover {
+            background: rgba(108, 92, 231, 0.3);
+        }
+        
+        .tab.active {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            font-weight: 600;
+        }
+        
+        .teachers-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .teacher-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .teacher-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .teacher-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .teacher-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .teacher-card:hover .teacher-image img {
+            transform: scale(1.1);
+        }
+        
+        .teacher-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 5px 10px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .teacher-info {
+            padding: 20px;
+        }
+        
+        .teacher-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: white;
+        }
+        
+        .specialization {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .skills span {
+            background: rgba(108, 92, 231, 0.2);
+            color: var(--secondary);
+            padding: 5px 10px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+        }
+        
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        .rating span {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        .profile-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-btn:hover {
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+            transform: translateY(-3px);
+        }
+        
+        /* Testimonials styles */
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .testimonial-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .quote-icon {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .testimonial-content p {
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .testimonial-author h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        
+        .testimonial-author p {
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+        
+        /* Contact form styles */
+        .contact-form {
+            max-width: 600px;
+            margin: 30px auto 0;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .form-group select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 15px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .teachers-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .testimonials-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs-container {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding-bottom: 15px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .teacher-card {
+                max-width: 100%;
+            }
+            
+            .contact-form {
+                padding: 0 15px;
+            }
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,267 @@
+        /* Additional styles for the teachers page */
+        .category-tabs {
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            padding: 0 20px;
+        }
+        
+        .tabs-container {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            scrollbar-width: thin;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .tab:hover {
+            background: rgba(108, 92, 231, 0.3);
+        }
+        
+        .tab.active {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            font-weight: 600;
+        }
+        
+        .teachers-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .teacher-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .teacher-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .teacher-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .teacher-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .teacher-card:hover .teacher-image img {
+            transform: scale(1.1);
+        }
+        
+        .teacher-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 5px 10px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .teacher-info {
+            padding: 20px;
+        }
+        
+        .teacher-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: white;
+        }
+        
+        .specialization {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .skills span {
+            background: rgba(108, 92, 231, 0.2);
+            color: var(--secondary);
+            padding: 5px 10px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+        }
+        
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        .rating span {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        .profile-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-btn:hover {
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+            transform: translateY(-3px);
+        }
+        
+        /* Testimonials styles */
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .testimonial-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .quote-icon {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .testimonial-content p {
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .testimonial-author h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        
+        .testimonial-author p {
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+        
+        /* Contact form styles */
+        .contact-form {
+            max-width: 600px;
+            margin: 30px auto 0;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .form-group select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 15px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .teachers-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .testimonials-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs-container {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding-bottom: 15px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .teacher-card {
+                max-width: 100%;
+            }
+            
+            .contact-form {
+                padding: 0 15px;
+            }
+        }
