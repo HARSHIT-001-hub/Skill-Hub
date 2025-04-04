@@ -158,6 +158,23 @@ def profile():
 def index1():
     return render_template('index1.html')
 
+@app.route('/teacher.html')
+def teacher():
+    return render_template('teacher.html')
+
+@app.route('/aboutus - Copy.html')
+def about_copy():
+    return render_template('aboutus - Copy.html')
+
+@app.route('/contactus - Copy.html')
+def contactus_copy():
+    return render_template('contactus - Copy.html')
+
+@app.route('/teacher - Copy.html')
+def teacher_copy():
+    return render_template('teacher - Copy.html')
+
+
 # Debug endpoint
 @app.route("/debug/user/<email>")
 def debug_user(email):
