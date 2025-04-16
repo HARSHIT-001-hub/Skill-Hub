@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect("skillhub.db")
+conn = sqlite3.connect("skillhub_users.db")
 cursor = conn.cursor()
 
 cursor.execute("SELECT * FROM users")
