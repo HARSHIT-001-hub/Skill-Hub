@@ -174,6 +174,29 @@ def contactus_copy():
 def teacher_copy():
     return render_template('teacher - Copy.html')
 
+@app.route('/michael.html')
+def michael():
+    return render_template('michael.html')
+
+@app.route('/shradha.html')
+def shradha():
+    return render_template('shradha.html')
+
+@app.route('/cwh.html')
+def cwh():
+    return render_template('cwh.html')
+
+@app.route('/Jenny.html')
+def Jenny():
+    return render_template('Jenny.html')
+
+@app.route('/Emma.html')
+def Emma():
+    return render_template('Emma.html')
+
+@app.route('/Lisa.html')
+def Lisa():
+    return render_template('Lisa.html')
 
 # Debug endpoint
 @app.route("/debug/user/<email>")

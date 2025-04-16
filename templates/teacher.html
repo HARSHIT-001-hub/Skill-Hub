@@ -452,15 +452,14 @@
     <header>
         <div class="header-container">
             <div class="logo">
-                <a href="index.html">Skill Hub</a>
+                <a href="index1.html">Skill Hub</a>
             </div>
             <nav>
                 <ul>
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index1.html">Home</a></li>
                     <li><a href="aboutus - Copy.html">About Us</a></li>
                     <li><a href="contactus - Copy.html">Contact Us</a></li>
                     <li><a href="teacher.html">Expert Teachers</a></li>
-                    <li><a href="#community">Community</a></li>
                 </ul>
             </nav>
             <div class="auth-buttons">
@@ -498,41 +497,15 @@
         </div>
         
         <div class="teachers-container">
-            <!-- Web Development Teachers -->
-            <div class="teacher-card web" data-category="web">
-                <div class="teacher-image">
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Teacher">
-                    <div class="teacher-badge">Web Expert</div>
-                </div>
-                <div class="teacher-info">
-                    <h3>Michael Johnson</h3>
-                    <p class="specialization">Full Stack Developer</p>
-                    <div class="skills">
-                        <span>JavaScript</span>
-                        <span>React</span>
-                        <span>Node.js</span>
-                    </div>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                        <span>4.7 (128)</span>
-                    </div>
-                    <a href="#" class="profile-btn">View Profile</a>
-                </div>
-            </div>
-            
             <!-- Data Science Teachers -->
             <div class="teacher-card data" data-category="data">
                 <div class="teacher-image">
-                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Teacher">
+                    <img src="{{ url_for('static', filename='1685972237021.jpeg') }}" alt="Teacher">
                     <div class="teacher-badge">Data Scientist</div>
                 </div>
                 <div class="teacher-info">
-                    <h3>Sarah Williams</h3>
-                    <p class="specialization">Machine Learning Engineer</p>
+                    <h3>Shradha Khapra</h3>
+                    <p class="specialization">Co-Founder, Apna College | 6Million+ YT | Ex-SDE Microsoft | Google SPS’20</p>
                     <div class="skills">
                         <span>Python</span>
                         <span>TensorFlow</span>
@@ -546,21 +519,21 @@
                         <i class="fas fa-star"></i>
                         <span>5.0 (96)</span>
                     </div>
-                    <a href="#" class="profile-btn">View Profile</a>
+                    <a href="shradha.html" class="profile-btn">View Profile</a>
                 </div>
             </div>
             
             <!-- Mobile Development Teachers -->
             <div class="teacher-card mobile" data-category="mobile">
                 <div class="teacher-image">
-                    <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Teacher">
-                    <div class="teacher-badge">Mobile Expert</div>
+                    <img src="{{ url_for('static', filename='1711584179466.jpeg') }}" alt="Teacher">
+                    <div class="teacher-badge">Python Developer</div>
                 </div>
                 <div class="teacher-info">
-                    <h3>David Kim</h3>
-                    <p class="specialization">Android & iOS Developer</p>
+                    <h3>Haris Ali Khan</h3>
+                    <p class="specialization">Python Developer</p>
                     <div class="skills">
-                        <span>Kotlin</span>
+                        <span>Pythonn</span>
                         <span>Swift</span>
                         <span>Flutter</span>
                     </div>
@@ -571,62 +544,97 @@
                         <i class="fas fa-star"></i>
                         <span>4.3 (87)</span>
                     </div>
-                    <a href="#" class="profile-btn">View Profile</a>
+                    <a href="cwh.html" class="profile-btn">View Profile</a>
                 </div>
             </div>
+
+                        <!-- Java Teachers -->
+                        <div class="teacher-card java" data-category="java">
+                            <div class="teacher-image">
+                                <img src="{{ url_for('static', filename='1563249744496.jpeg') }}" alt="Teacher">
+                                <div class="teacher-badge">Java Expert</div>
+                            </div>
+                            <div class="teacher-info">
+                                <h3>Jayanti khatri</h3>
+                                <p class="specialization">Java Architect</p>
+                                <div class="skills">
+                                    <span>Java</span>
+                                    <span>Spring Boot</span>
+                                    <span>Microservices</span>
+                                </div>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <span>4.8 (145)</span>
+                                </div>
+                                <a href="Jenny.html" class="profile-btn">View Profile</a>
+                            </div>
+                        </div>  
             
             <!-- UI/UX Design Teachers -->
-            <div class="teacher-card design" data-category="design">
-                <div class="teacher-image">
-                    <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Teacher">
-                    <div class="teacher-badge">Design Expert</div>
-                </div>
-                <div class="teacher-info">
-                    <h3>Emma Rodriguez</h3>
-                    <p class="specialization">UI/UX Designer</p>
-                    <div class="skills">
-                        <span>Figma</span>
-                        <span>Adobe XD</span>
-                        <span>User Research</span>
-                    </div>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <span>5.0 (112)</span>
-                    </div>
-                    <a href="#" class="profile-btn">View Profile</a>
-                </div>
-            </div>
+
             
-            <!-- Java Teachers -->
-            <div class="teacher-card java" data-category="java">
-                <div class="teacher-image">
-                    <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Teacher">
-                    <div class="teacher-badge">Java Expert</div>
-                </div>
-                <div class="teacher-info">
-                    <h3>Robert Chen</h3>
-                    <p class="specialization">Java Architect</p>
-                    <div class="skills">
-                        <span>Java</span>
-                        <span>Spring Boot</span>
-                        <span>Microservices</span>
-                    </div>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                        <span>4.8 (145)</span>
-                    </div>
-                    <a href="#" class="profile-btn">View Profile</a>
-                </div>
-            </div>
+                        <!-- Web Development Teachers -->
+                        <div class="teacher-card web" data-category="web">
+                            <div class="teacher-image">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Teacher">
+                                <div class="teacher-badge">Web Expert</div>
+                            </div>
+                            <div class="teacher-info">
+                                <h3>Michael Johnson</h3>
+                                <p class="specialization">Full Stack Developer</p>
+                                <div class="skills">
+                                    <span>JavaScript</span>
+                                    <span>React</span>
+                                    <span>Node.js</span>
+                                </div>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <span>4.7 (128)</span>
+                                </div>
+                                <a href="michael.html" class="profile-btn">View Profile</a>
+                            </div>
+                        </div>
+
+
+                        <div class="teacher-card design" data-category="design">
+                            <div class="teacher-image">
+                                <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Teacher">
+                                <div class="teacher-badge">Design Expert</div>
+                            </div>
+                            <div class="teacher-info">
+                                <h3>Emma Rodriguez</h3>
+                                <p class="specialization">UI/UX Designer</p>
+                                <div class="skills">
+                                    <span>Figma</span>
+                                    <span>Adobe XD</span>
+                                    <span>User Research</span>
+                                </div>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span>5.0 (112)</span>
+                                </div>
+                                <a href="Emma.html" class="profile-btn">View Profile</a>
+                            </div>
+                        </div>
+
+
+
             
+
+            
+
             <!-- Python Teachers -->
             <div class="teacher-card python" data-category="python">
                 <div class="teacher-image">
@@ -649,60 +657,9 @@
                         <i class="fas fa-star"></i>
                         <span>5.0 (203)</span>
                     </div>
-                    <a href="#" class="profile-btn">View Profile</a>
+                    <a href="Lisa.html" class="profile-btn">View Profile</a>
                 </div>
             </div>
-            
-            <!-- Additional Teachers -->
-            <div class="teacher-card web" data-category="web">
-                <div class="teacher-image">
-                    <img src="https://randomuser.me/api/portraits/women/52.jpg" alt="Teacher">
-                    <div class="teacher-badge">Frontend Expert</div>
-                </div>
-                <div class="teacher-info">
-                    <h3>Olivia Martinez</h3>
-                    <p class="specialization">Frontend Developer</p>
-                    <div class="skills">
-                        <span>React</span>
-                        <span>Vue.js</span>
-                        <span>CSS</span>
-                    </div>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <span>4.2 (76)</span>
-                    </div>
-                    <a href="#" class="profile-btn">View Profile</a>
-                </div>
-            </div>
-            
-            <div class="teacher-card data" data-category="data">
-                <div class="teacher-image">
-                    <img src="https://randomuser.me/api/portraits/men/82.jpg" alt="Teacher">
-                    <div class="teacher-badge">Data Analyst</div>
-                </div>
-                <div class="teacher-info">
-                    <h3>James Wilson</h3>
-                    <p class="specialization">Data Analyst</p>
-                    <div class="skills">
-                        <span>SQL</span>
-                        <span>Tableau</span>
-                        <span>Power BI</span>
-                    </div>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                        <span>4.6 (92)</span>
-                    </div>
-                    <a href="#" class="profile-btn">View Profile</a>
-                </div>
-            </div>
-        </div>
     </section>
 
     <!-- Categories Section -->
@@ -949,6 +906,13 @@
                 
                 container.appendChild(particle);
             }
+        }
+
+        function logout() {
+            // Add logout functionality here
+            alert('Logging out...');
+            // Typically you would redirect to a logout endpoint
+            window.location.href = '/index.html';
         }
         
         // Call this in your DOMContentLoaded event

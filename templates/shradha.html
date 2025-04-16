@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Profile | Skill Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='Styles.css') }}">
+    <style>
+        /* Teacher Profile Specific Styles */
+        .teacher-profile-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .teacher-profile-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/concrete-wall.png');
+            opacity: 0.1;
+        }
+        
+        .teacher-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .teacher-name {
+            font-size: 2.5rem;
+            margin: 0.5rem 0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .teacher-title {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .teacher-badge-profile {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .teacher-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .teacher-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        /* Teacher Content Section */
+        .teacher-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1rem;
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .teacher-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Teacher Sidebar */
+        .teacher-sidebar {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid var(--glass-border);
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 2rem;
+        }
+        
+        .sidebar-section h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .sidebar-section h3 i {
+            font-size: 1rem;
+        }
+        
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .skill-tag {
+            background: rgba(0, 206, 255, 0.1);
+            color: var(--secondary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .contact-btn {
+            display: block;
+            width: 100%;
+            padding: 0.8rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.4);
+        }
+        
+        /* Teacher Main Content */
+        .teacher-main {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid var(--glass-border);
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            color: white;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        .teacher-bio {
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+        
+        /* Courses Section */
+        .courses-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .course-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-color: var(--secondary);
+        }
+        
+        .course-image {
+            height: 160px;
+            overflow: hidden;
+        }
+        
+        .course-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .course-card:hover .course-image img {
+            transform: scale(1.05);
+        }
+        
+        .course-info {
+            padding: 1.5rem;
+        }
+        
+        .course-title {
+            font-size: 1.1rem;
+            margin: 0 0 0.5rem;
+        }
+        
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+        }
+        
+        .course-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .course-desc {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .course-btn {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .course-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+        }
+        
+        /* Testimonials Section */
+        .testimonials-slider {
+            margin: 2rem 0;
+            position: relative;
+        }
+        
+        .testimonial-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .testimonial-author img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1rem;
+            border: 2px solid var(--secondary);
+        }
+        
+        .author-info h4 {
+            margin: 0 0 0.2rem;
+            font-size: 0.9rem;
+        }
+        
+        .author-info p {
+            margin: 0;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .teacher-name {
+                font-size: 2rem;
+            }
+            
+            .teacher-stats {
+                flex-wrap: wrap;
+            }
+            
+            .courses-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .teacher-avatar {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .teacher-name {
+                font-size: 1.8rem;
+            }
+            
+            .teacher-title {
+                font-size: 1rem;
+            }
+            
+            .stat-number {
+                font-size: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.3rem;
+            }
+        }
+        
+        /* Add these to your existing :root variables if not already present */
+        :root {
+            --primary: #6C5CE7;
+            --secondary: #00CEFF;
+            --accent: #FFD700;
+            --dark: #2D3436;
+            --light: #F5F6FA;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+        .logout-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .logout-btn:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">Skill Hub</a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="aboutus - Copy.html">About Us</a></li>
+                    <li><a href="contactus - Copy.html">Contact Us</a></li>
+                    <li><a href="teacher.html">Expert Teachers</a></li>
+                    <li><a href="#community">Community</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Teacher Profile Header -->
+    <section class="teacher-profile-header">
+        <img src="{{ url_for('static', filename='1685972237021.jpeg') }}" alt="Michael Johnson" class="teacher-avatar">
+        <h1 class="teacher-name">Shradha Khapra</h1>
+        <p class="teacher-title">Co-Founder, Apna College | 6Million+ YT | Ex-SDE Microsoft | Google SPS’20</p>
+        <div class="teacher-badge-profile">Co-Founder, Apna College | 6Million+ YT | Ex-SDE Microsoft | Google SPS’20</div>
+        
+        <div class="teacher-stats">
+            <div class="stat-item">
+                <div class="stat-number">8+</div>
+                <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">1.2K</div>
+                <div class="stat-label">Students</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">4.8</div>
+                <div class="stat-label">Rating</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">15</div>
+                <div class="stat-label">Courses</div>
+            </div>
+        </div>
+        
+        <div class="teacher-social">
+            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+        </div>
+    </section>
+
+    <!-- Teacher Content -->
+    <section class="teacher-content">
+        <!-- Teacher Sidebar -->
+        <aside class="teacher-sidebar">
+            <div class="sidebar-section">
+                <h3><i class="fas fa-info-circle"></i> About</h3>
+                <p>Co-Founder, Apna College | 6Million+ YT | Ex-SDE Microsoft | Google SPS’20</p>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3><i class="fas fa-tools"></i> Skills</h3>
+                <div class="skills-list">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">SQL</span>
+                    <span class="skill-tag">DSA</span>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3><i class="fas fa-briefcase"></i> Experience</h3>
+                <p><strong>Senior Developer</strong> at TechCorp (2018-Present)</p>
+                <p><strong>Web Developer</strong> at Digital Solutions (2015-2018)</p>
+                <p><strong>Freelance Developer</strong> (2013-2015)</p>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+                <p><strong>MSc Computer Science</strong> - State University (2013)</p>
+                <p><strong>BSc Information Technology</strong> - City College (2011)</p>
+            </div>
+            
+            <a href="#contact" class="contact-btn">Contact Shradha</a>
+        </aside>
+        
+        <!-- Teacher Main Content -->
+        <main class="teacher-main">
+            <section id="bio">
+                <h2 class="section-title">Biography</h2>
+                <div class="teacher-bio">
+                   <p>Trying to make "Hello World" the new "abc";
+
+                    Resigned as a Software Engineer at Microsoft, now pursuing my passion for education.
+                    
+                    I am a Computer Engineering graduate from NSIT, Delhi. I have interned twice with Microsoft IDC, D.R.D.O. & worked on a few research projects (published by Wiley).
+                    
+                    Technology excites me and I am always in awe of the change it drives in the world. Certain skills that I have worked with include Data Structures and Algorithms (Java), Web Development (NodeJs, MySQL), Linux OS (with Go) & Machine Learning (Python). And what I might lack in skills I make up for with my determination to learn. 
+                    
+                    Outside of tech, I am a tea lover and have spent my college days exploring theatre.</p>
+                </div>
+            </section>
+            
+            <section id="courses">
+                <h2 class="section-title">Courses by Shradha Khapra</h2>
+                
+                <div class="courses-container">
+                    <!-- Course 1 -->
+                    <div class="course-card">
+                        <div class="course-image">
+                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Modern JavaScript">
+                        </div>
+                        <div class="course-info">
+                            <h3 class="course-title">Delta 6.0 : Complete Web Development!</h3>
+                            <div class="course-meta">
+                                <span><i class="far fa-clock"></i> 32 hours</span>
+                                <span><i class="fas fa-user-graduate"></i> 450 students</span>
+                            </div>
+                            <div class="course-price">₹6,250.00</div>
+                            <p class="course-desc">With this course, you will get:
+
+                                Complete Frontend Development (ReactJS, HTML, CSS, Javascript & frameworks like Bootstrap & Tailwind)
+                                Complete Backend Development (Node.js, Express.js)
+                                Complete Database - SQL & MongoDB
+                                Complete MERN Stack (MongoDB, Express, Node)
+                                Real Life and Industry Grade Projects
+                                </p>
+                            <a href="https://pages.razorpay.com/delta-6" class="course-btn">Enroll Now</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Course 2 -->
+                    <div class="course-card">
+                        <div class="course-image">
+                            <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="React Masterclass">
+                        </div>
+                        <div class="course-info">
+                            <h3 class="course-title">Sigma 6.0 : Complete Placement Preparation!</h3>
+                            <div class="course-meta">
+                                <span><i class="far fa-clock"></i> 45 hours</span>
+                                <span><i class="fas fa-user-graduate"></i> 680 students</span>
+                            </div>
+                            <div class="course-price">₹8,999.00 </div>
+                            <p class="course-desc">With this course, you will get:
+
+                                Complete Frontend Development (HTML, CSS, Javascript & frameworks like Bootstrap & Tailwind)
+                                Complete Backend Development (Node.js, Express.js)
+                                Complete Database - SQL & MongoDB
+                                Complete MERN Stack (MongoDB, Express, React, Node)
+                                Show More
+                                
+                                .</p>
+                            <a href="https://pages.razorpay.com/sigma-6" class="course-btn">Enroll Now</a>
+                        </div>
+                    </div>
+            <section id="testimonials">
+                <h2 class="section-title">Student Testimonials</h2>
+                
+                <div class="testimonials-slider">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-item">
+                        <div class="testimonial-text">
+                            "Michael's JavaScript course completely transformed my understanding of frontend development. His real-world examples made complex concepts easy to grasp. I went from beginner to job-ready in just 3 months!"
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Sarah Johnson">
+                            <div class="author-info">
+                                <h4>Sarah Johnson</h4>
+                                <p>Frontend Developer at WebTech</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-item">
+                        <div class="testimonial-text">
+                            "The Full Stack JavaScript course is hands down the best investment I've made in my career. Michael explains concepts clearly and provides practical exercises that reinforce learning. I got my first developer job thanks to this course."
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="David Kim">
+                            <div class="author-info">
+                                <h4>David Kim</h4>
+                                <p>Full Stack Developer at DigitalAgency</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial-item">
+                        <div class="testimonial-text">
+                            "As a senior developer, I took Michael's TypeScript course to update my skills. His deep knowledge and practical approach helped me implement TypeScript in our production codebase with confidence."
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emma Rodriguez">
+                            <div class="author-info">
+                                <h4>Emma Rodriguez</h4>
+                                <p>Tech Lead at EnterpriseSoft</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="contact">
+                <h2 class="section-title">Contact Shradha</h2>
+                
+                <form class="contact-form">
+                    <div class="form-group">
+                        <input type="text" id="name" required>
+                        <label for="name">Your Name</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" required>
+                        <label for="email">Your Email</label>
+                    </div>
+                    <div class="form-group">
+                        <select id="subject" required>
+                            <option value="" disabled selected></option>
+                            <option value="course">Course Inquiry</option>
+                            <option value="private">Private Tutoring</option>
+                            <option value="other">Other Question</option>
+                        </select>
+                        <label for="subject">Subject</label>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" rows="5" required></textarea>
+                        <label for="message">Your Message</label>
+                    </div>
+                    <button type="submit" class="course-btn">Send Message</button>
+                </form>
+            </section>
+        </main>
+    </section>
+
+    <!-- Footer -->
+    <div class="waves"></div>
+    <div class="footer-content">
+        <div class="footer-logo">Skill Hub</div>
+        <div class="shortcut-links">
+            <a href="index.html">Home</a>
+            <a href="contactus.html">Contact Us</a>
+            <a href="aboutus.html">About Us</a>
+            <a href="#community">Community</a>
+        </div>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+        <div class="copyright">
+            &copy; 2025 Skill Exchange Hub. All rights reserved.
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Simple scroll to top functionality
+        document.querySelector('.scroll-to-top').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Show/hide scroll to top button based on scroll position
+        window.addEventListener('scroll', function() {
+            const scrollTopBtn = document.querySelector('.scroll-to-top');
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.style.opacity = '1';
+                scrollTopBtn.style.visibility = 'visible';
+            } else {
+                scrollTopBtn.style.opacity = '0';
+                scrollTopBtn.style.visibility = 'hidden';
+            }
+        });
+        
+        // Form label animation
+        document.querySelectorAll('.form-group input, .form-group textarea, .form-group select').forEach(element => {
+            element.addEventListener('focus', function() {
+                this.nextElementSibling.style.transform = 'translateY(-0.5rem)';
+                this.nextElementSibling.style.fontSize = '0.7rem';
+                this.nextElementSibling.style.background = 'linear-gradient(45deg, var(--primary), var(--secondary))';
+                this.nextElementSibling.style.webkitBackgroundClip = 'text';
+                this.nextElementSibling.style.backgroundClip = 'text';
+                this.nextElementSibling.style.webkitTextFillColor = 'transparent';
+                this.nextElementSibling.style.padding = '0 0.2rem';
+            });
+            
+            element.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.nextElementSibling.style.transform = '';
+                    this.nextElementSibling.style.fontSize = '';
+                    this.nextElementSibling.style.background = '';
+                    this.nextElementSibling.style.webkitBackgroundClip = '';
+                    this.nextElementSibling.style.backgroundClip = '';
+                    this.nextElementSibling.style.webkitTextFillColor = '';
+                    this.nextElementSibling.style.padding = '';
+                }
+            });
+            
+            // Initialize labels for select elements
+            if (element.tagName === 'SELECT' && element.value) {
+                element.nextElementSibling.style.transform = 'translateY(-0.5rem)';
+                element.nextElementSibling.style.fontSize = '0.7rem';
+                element.nextElementSibling.style.background = 'linear-gradient(45deg, var(--primary), var(--secondary))';
+                element.nextElementSibling.style.webkitBackgroundClip = 'text';
+                element.nextElementSibling.style.backgroundClip = 'text';
+                element.nextElementSibling.style.webkitTextFillColor = 'transparent';
+                element.nextElementSibling.style.padding = '0 0.2rem';
+            }
+        });
+        
+        function logout() {
+            // Add logout functionality here
+            alert('Logging out...');
+            // Typically you would redirect to a logout endpoint
+            // window.location.href = '/logout';
+        }
+    </script>
+</body>
+</html>
