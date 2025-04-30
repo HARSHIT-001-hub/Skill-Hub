@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='Styles.css') }}" />
+    <style>
+        :root {
+            --primary: #6C5CE7;
+            --secondary: #00CEFF;
+            --accent: #FFD700;
+            --dark: #2D3436;
+            --light: #F5F6FA;
+            --success: #00B894;
+            --glass: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #2D3436 0%, #000000 100%);
+            color: var(--light);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+            border: 3px solid var(--dark);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary);
+        }
+
+        /* Header with glass morphism */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            transition: all 0.5s ease;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 30px;
+        }
+
+        .logo a {
+            text-decoration: none;
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .logo a:hover {
+            text-shadow: 0 0 15px rgba(108, 92, 231, 0.5);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav ul li a {
+            position: relative;
+            text-decoration: none;
+            color: var(--light);
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            padding: 8px 0;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .auth-buttons .btn {
+            text-decoration: none;
+            color: var(--light);
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 50px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .auth-buttons .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            z-index: -1;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: scaleX(0);
+            transform-origin: right;
+        }
+
+        .auth-buttons .btn:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .auth-buttons .btn:hover {
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+        }
+
+        .auth-buttons .btn:nth-child(2) {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+        }
+
+        .auth-buttons .btn:nth-child(2):hover {
+            transform: translateY(-3px);
+        }
+            /* Enhanced Dashboard Styles */
+    .container {
+        max-width: 1200px;
+        margin: 120px auto 50px;
+        padding: 0 30px;
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -15px;
+    }
+
+    .justify-content-center {
+        justify-content: center;
+    }
+
+    .col-sm-8 {
+        flex: 0 0 66.666667%;
+        max-width: 66.666667%;
+        padding: 0 15px;
+    }
+
+    /* Dashboard Card - Glass Morphism */
+    .dashboard-card {
+        background: var(--glass);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 20px;
+        padding: 3rem;
+        box-shadow: 0 25px 45px rgba(0, 0, 0, 0.25);
+        border: 1px solid var(--glass-border);
+        position: relative;
+        overflow: hidden;
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .dashboard-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 10px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+    }
+
+    .dashboard-card::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle, rgba(0,206,255,0.2) 0%, rgba(0,206,255,0) 70%);
+        z-index: -1;
+        animation: float 8s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translate(0, 0); }
+        50% { transform: translate(-20px, -20px); }
+    }
+
+    /* Dashboard Typography */
+    h2 {
+        color: var(--light);
+        font-size: 2.8rem;
+        margin-bottom: 2.5rem;
+        position: relative;
+        text-align: center;
+        letter-spacing: 1px;
+        font-weight: 700;
+        background: linear-gradient(45deg, var(--accent), var(--secondary));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    h2::after {
+        content: '';
+        display: block;
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--accent), var(--secondary));
+        margin: 15px auto 0;
+        border-radius: 2px;
+    }
+
+    /* User Info Cards */
+    .user-data {
+        background: rgba(45, 52, 54, 0.6);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        border-left: 4px solid var(--accent);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .user-data:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        background: rgba(45, 52, 54, 0.8);
+    }
+
+    .user-data::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.05));
+        z-index: -1;
+    }
+
+    .user-data b {
+        color: var(--accent);
+        font-weight: 600;
+        margin-right: 8px;
+    }
+
+    /* Teacher Section - Floating Button */
+    .teacher {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    text-align: center;
+}
+
+.teacher a {
+    display: inline-flex; /* Changed from flex to inline-flex */
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    color: var(--light);
+    border-radius: 50%;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 10px 25px rgba(108, 92, 231, 0.4);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Keep all the rest of your existing styles the same */
+.teacher a::before {
+    content: 'Expert Teachers';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, var(--secondary), var(--primary));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.teacher a:hover::before {
+    opacity: 1;
+}
+
+.teacher a span {
+    position: absolute;
+    white-space: nowrap;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: all 0.3s ease;
+    font-size: 0;
+}
+
+.teacher a:hover {
+    width: auto;
+    padding: 0 25px;
+    border-radius: 50px;
+}
+
+.teacher a:hover span {
+    opacity: 1;
+    font-size: 1rem;
+    margin-left: 35px;
+}
+
+.teacher a i {
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.teacher a:hover i {
+    margin-right: 10px;
+}
+    /* Responsive Design */
+    @media (max-width: 992px) {
+        .col-sm-8 {
+            flex: 0 0 83.333333%;
+            max-width: 83.333333%;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            margin-top: 100px;
+        }
+        
+        .col-sm-8 {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+        
+        h2 {
+            font-size: 2.2rem;
+        }
+        
+        .dashboard-card {
+            padding: 2rem 1.5rem;
+        }
+    }
+
+    /* Animation Classes */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in-up {
+        animation: fadeInUp 0.8s ease-out forwards;
+    }
+
+    .delay-1 {
+        animation-delay: 0.2s;
+    }
+
+    .delay-2 {
+        animation-delay: 0.4s;
+    }
+
+    /* Add to your HTML elements */
+    /* <div class="dashboard-card animate-fade-in-up"> */
+    /* <p class="info-card delay-1"> */
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">Skill Hub</a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="aboutus.html">About Us</a></li>
+                    <li><a href="contactus.html">Contact Us</a></li>
+                    <li><a href="#community-text">Community</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="/logout" class="btn">Logout</a>
+            </div>
+            </div>
+        </header>
+        </div>
+        <div class="container">
+            <div class=" row justify-content-center">
+                <div class="col-sm-8">
+                    <h2>Dashboard</h2>
+                    <p class="user-data"><b>Name: </b> {{user.name }}</p>
+                    <p class="user-data"><b>Email: </b> {{user.email }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="teacher">
+            <a href="teacher.html">Expert Teachers</a>
+        </div>
+</body>
+</html>

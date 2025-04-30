@@ -1,11 +1,32 @@
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
 import sqlite3
 import os
 from flask_cors import CORS
+import bcrypt
 
 app = Flask(__name__, template_folder='templates')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+db = SQLAlchemy(app)
 app.secret_key = "super_secret_key"
 CORS(app)
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100), unique=True)
+    password = db.Column(db.String(100))
+
+    def __init__(self,email,password,name):
+        self.name = name
+        self.email = email
+        self.password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+    
+    def check_password(self,password):
+        return bcrypt.checkpw(password.encode('utf-8'),self.password.encode('utf-8'))
+
+with app.app_context():
+    db.create_all()
 
 # Database initialization
 def init_db():
@@ -56,87 +77,49 @@ def create_user_db(email):
 @app.route("/index.html")
 def home():
     return render_template("index.html")
-@app.route("/register", methods=["POST"])
+
+@app.route('/register',methods=['GET','POST'])
 def register():
-    conn = None
-    try:
-        data = request.get_json()
-        app.logger.info(f"Register data received: {data}")
+    if request.method == 'POST':
+        # handle request
+        name = request.form['name']
+        email = request.form['email']
+        password = request.form['password']
 
-        if not data or not data.get("email") or not data.get("password") or not data.get("name"):
-            return jsonify({"success": False, "message": "Name, email and password are required!"}), 400
+        new_user = User(name=name,email=email,password=password)
+        db.session.add(new_user)
+        db.session.commit()
+        return redirect('/dashboard_1.html')
 
-        conn = sqlite3.connect("skillhub_users.db")
-        cursor = conn.cursor()
 
-        # Add 'name' column if it doesn't exist
-        cursor.execute("PRAGMA table_info(users)")
-        columns = [col[1] for col in cursor.fetchall()]
-        if 'name' not in columns:
-            cursor.execute("ALTER TABLE users ADD COLUMN name TEXT")
 
-        cursor.execute("INSERT INTO users (email, password, name) VALUES (?, ?, ?)", 
-                       (data["email"], data["password"], data["name"]))
-        conn.commit()
+    return render_template('register.html')
 
-        create_user_db(data["email"])
-
-        return jsonify({"success": True, "message": "Registration successful!"})
-    
-    except sqlite3.IntegrityError as ie:
-        app.logger.warning(f"Email already exists: {str(ie)}")
-        return jsonify({"success": False, "message": "Email already exists!"}), 400
-
-    except Exception as e:
-        import traceback
-        traceback.print_exc()
-        app.logger.error(f"Registration error: {str(e)}")
-        return jsonify({"success": False, "message": "Registration failed. Please try again."}), 500
-    
-    finally:
-        if conn:
-            conn.close()
-
-@app.route("/login", methods=["POST"])
+@app.route('/login',methods=['GET','POST'])
 def login():
-    conn = None
-    try:
-        data = request.get_json()
-        if not data or not data.get("email") or not data.get("password"):
-            return jsonify({"success": False, "message": "Email and password are required!"}), 400
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
 
-        conn = sqlite3.connect("skillhub_users.db")
-        cursor = conn.cursor()
-        cursor.execute("SELECT password FROM users WHERE email = ?", (data["email"],))
-        user = cursor.fetchone()
-
-        if user and user[0] == data["password"]:
-            session['email'] = data["email"]
-            return jsonify({
-                "success": True,
-                "message": "Login successful!",
-                "email": data["email"]
-            })
+        user = User.query.filter_by(email=email).first()
+        
+        if user and user.check_password(password):
+            session['email'] = user.email
+            return redirect('/dashboard_1.html')
         else:
-            return jsonify({"success": False, "message": "Invalid credentials!"}), 401
-    except Exception as e:
-        app.logger.error(f"Login error: {str(e)}")
-        return jsonify({"success": False, "message": f"Login failed: {str(e)}"}), 500
-    finally:
-        if conn:
-            conn.close()
+            return render_template('form.html',error='Invalid user')
 
-@app.route("/logout")
-def logout():
-    session.pop('email', None)
-    return redirect(url_for('home'))
+    return render_template('login')
 
-@app.route("/dashboard.html")
+@app.route('/dashboard_1.html')
 def dashboard():
-    if 'email' in session and 'name' in session:
-        return render_template("dashboard.html", email=session['email'], name=session['name'])
-    else:
-        return redirect(url_for('index1'))
+    if session['email']:
+        user = User.query.filter_by(email=session['email']).first()
+        return render_template('dashboard_1.html',user=user)
+    
+    return redirect('/login')
+
+
 # Static pages
 @app.route('/aboutus.html')
 def about():
@@ -198,24 +181,10 @@ def Emma():
 def Lisa():
     return render_template('Lisa.html')
 
-# Debug endpoint
-@app.route("/debug/user/<email>")
-def debug_user(email):
-    conn = None
-    try:
-        conn = sqlite3.connect("skillhub_users.db")
-        cursor = conn.cursor()
-        cursor.execute("SELECT email FROM users WHERE email = ?", (email,))
-        user = cursor.fetchone()
-        return jsonify({
-            "exists": bool(user),
-            "email_in_db": user[0] if user else None
-        })
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-    finally:
-        if conn:
-            conn.close()
+@app.route('/logout')
+def logout():
+    session.pop('email',None)
+    return redirect('/index.html')
 
 if __name__ == '__main__':
     if not os.path.exists("databases"):
