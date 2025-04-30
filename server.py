@@ -27,51 +27,7 @@ class User(db.Model):
 
 with app.app_context():
     db.create_all()
-
-# Database initialization
-def init_db():
-    if not os.path.exists("databases"):
-        os.makedirs("databases")
-
-    conn = sqlite3.connect("skillhub_users.db")
-    cursor = conn.cursor()
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            email TEXT UNIQUE NOT NULL,
-            password TEXT NOT NULL
-        )
-    """)
-    cursor.execute("CREATE INDEX IF NOT EXISTS idx_email ON users(email)")
-    conn.commit()
-    conn.close()
-
-init_db()
-
-def create_user_db(email):
-    safe_email = email.replace('@', '_').replace('.', '_')
-    db_path = f"databases/user_{safe_email}.db"
-
-    if not os.path.exists("databases"):
-        os.makedirs("databases")
-
-    conn = sqlite3.connect(db_path)
-    cursor = conn.cursor()
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS profile (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            phone TEXT,
-            address TEXT,
-            interesting_language TEXT,
-            known_language TEXT,
-            level TEXT
-        )
-    """)
-    conn.commit()
-    conn.close()
-    return db_path
-
+    
 # Routes
 @app.route("/")
 @app.route("/index.html")
