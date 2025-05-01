@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login page</title>
+    <title>Dashboard</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ url_for('static', filename='Styles.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --primary: #6C5CE7;
@@ -173,256 +174,238 @@
         .auth-buttons .btn:nth-child(2):hover {
             transform: translateY(-3px);
         }
-            /* Enhanced Dashboard Styles */
-    .container {
-        max-width: 1200px;
-        margin: 120px auto 50px;
-        padding: 0 30px;
-    }
 
-    .row {
-        display: flex;
-        flex-wrap: wrap;
-        margin: 0 -15px;
-    }
-
-    .justify-content-center {
-        justify-content: center;
-    }
-
-    .col-sm-8 {
-        flex: 0 0 66.666667%;
-        max-width: 66.666667%;
-        padding: 0 15px;
-    }
-
-    /* Dashboard Card - Glass Morphism */
-    .dashboard-card {
-        background: var(--glass);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border-radius: 20px;
-        padding: 3rem;
-        box-shadow: 0 25px 45px rgba(0, 0, 0, 0.25);
-        border: 1px solid var(--glass-border);
-        position: relative;
-        overflow: hidden;
-        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .dashboard-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 10px;
-        background: linear-gradient(90deg, var(--primary), var(--secondary));
-    }
-
-    .dashboard-card::after {
-        content: '';
-        position: absolute;
-        top: -50%;
-        right: -50%;
-        width: 200px;
-        height: 200px;
-        background: radial-gradient(circle, rgba(0,206,255,0.2) 0%, rgba(0,206,255,0) 70%);
-        z-index: -1;
-        animation: float 8s ease-in-out infinite;
-    }
-
-    @keyframes float {
-        0%, 100% { transform: translate(0, 0); }
-        50% { transform: translate(-20px, -20px); }
-    }
-
-    /* Dashboard Typography */
-    h2 {
-        color: var(--light);
-        font-size: 2.8rem;
-        margin-bottom: 2.5rem;
-        position: relative;
-        text-align: center;
-        letter-spacing: 1px;
-        font-weight: 700;
-        background: linear-gradient(45deg, var(--accent), var(--secondary));
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-
-    h2::after {
-        content: '';
-        display: block;
-        width: 80px;
-        height: 4px;
-        background: linear-gradient(90deg, var(--accent), var(--secondary));
-        margin: 15px auto 0;
-        border-radius: 2px;
-    }
-
-    /* User Info Cards */
-    .user-data {
-        background: rgba(45, 52, 54, 0.6);
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
-        border-left: 4px solid var(--accent);
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .user-data:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        background: rgba(45, 52, 54, 0.8);
-    }
-
-    .user-data::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.05));
-        z-index: -1;
-    }
-
-    .user-data b {
-        color: var(--accent);
-        font-weight: 600;
-        margin-right: 8px;
-    }
-
-    /* Teacher Section - Floating Button */
-    .teacher {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 999;
-    text-align: center;
-}
-
-.teacher a {
-    display: inline-flex; /* Changed from flex to inline-flex */
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(45deg, var(--primary), var(--secondary));
-    color: var(--light);
-    border-radius: 50%;
-    text-decoration: none;
-    font-weight: 600;
-    box-shadow: 0 10px 25px rgba(108, 92, 231, 0.4);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Keep all the rest of your existing styles the same */
-.teacher a::before {
-    content: 'Expert Teachers';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, var(--secondary), var(--primary));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.teacher a:hover::before {
-    opacity: 1;
-}
-
-.teacher a span {
-    position: absolute;
-    white-space: nowrap;
-    left: 50%;
-    transform: translateX(-50%);
-    opacity: 0;
-    transition: all 0.3s ease;
-    font-size: 0;
-}
-
-.teacher a:hover {
-    width: auto;
-    padding: 0 25px;
-    border-radius: 50px;
-}
-
-.teacher a:hover span {
-    opacity: 1;
-    font-size: 1rem;
-    margin-left: 35px;
-}
-
-.teacher a i {
-    font-size: 1.5rem;
-    transition: all 0.3s ease;
-}
-
-.teacher a:hover i {
-    margin-right: 10px;
-}
-    /* Responsive Design */
-    @media (max-width: 992px) {
-        .col-sm-8 {
-            flex: 0 0 83.333333%;
-            max-width: 83.333333%;
-        }
-    }
-
-    @media (max-width: 768px) {
+        /* Enhanced Dashboard Styles */
         .container {
-            margin-top: 100px;
+            max-width: 1200px;
+            margin: 120px auto 50px;
+            padding: 0 30px;
         }
-        
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -15px;
+        }
+
+        .justify-content-center {
+            justify-content: center;
+        }
+
         .col-sm-8 {
-            flex: 0 0 100%;
-            max-width: 100%;
+            flex: 0 0 66.666667%;
+            max-width: 66.666667%;
+            padding: 0 15px;
         }
-        
-        h2 {
-            font-size: 2.2rem;
-        }
-        
+
+        /* Dashboard Card - Glass Morphism */
         .dashboard-card {
-            padding: 2rem 1.5rem;
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--glass-border);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin-bottom: 30px;
         }
-    }
 
-    /* Animation Classes */
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
+        .dashboard-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
         }
-        to {
-            opacity: 1;
-            transform: translateY(0);
+
+        .dashboard-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(0,206,255,0.2) 0%, rgba(0,206,255,0) 70%);
+            z-index: -1;
+            animation: float 8s ease-in-out infinite;
         }
-    }
 
-    .animate-fade-in-up {
-        animation: fadeInUp 0.8s ease-out forwards;
-    }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-20px, -20px); }
+        }
 
-    .delay-1 {
-        animation-delay: 0.2s;
-    }
+        /* Dashboard Typography */
+        h2 {
+            color: var(--light);
+            font-size: 2.8rem;
+            margin-bottom: 2.5rem;
+            position: relative;
+            text-align: center;
+            letter-spacing: 1px;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-    .delay-2 {
-        animation-delay: 0.4s;
-    }
+        h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--secondary));
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
 
-    /* Add to your HTML elements */
-    /* <div class="dashboard-card animate-fade-in-up"> */
-    /* <p class="info-card delay-1"> */
+        /* User Info Cards */
+        .user-data {
+            background: rgba(45, 52, 54, 0.6);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--accent);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .user-data:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            background: rgba(45, 52, 54, 0.8);
+        }
+
+        .user-data::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.05));
+            z-index: -1;
+        }
+
+        .user-data b {
+            color: var(--accent);
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        /* Action Buttons Section */
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: var(--light);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 25px rgba(108, 92, 231, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            min-width: 250px;
+            text-align: center;
+        }
+
+        .action-btn i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(108, 92, 231, 0.6);
+        }
+
+        .action-btn:nth-child(2) {
+            background: linear-gradient(45deg, var(--accent), #FF8C00);
+        }
+
+        .action-btn:nth-child(2):hover {
+            box-shadow: 0 15px 30px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .col-sm-8 {
+                flex: 0 0 83.333333%;
+                max-width: 83.333333%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin-top: 100px;
+            }
+            
+            .col-sm-8 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+            
+            h2 {
+                font-size: 2.2rem;
+            }
+            
+            .dashboard-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .action-btn {
+                width: 100%;
+            }
+        }
+
+        /* Animation Classes */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
     </style>
 </head>
 <body>
@@ -442,21 +425,32 @@
             <div class="auth-buttons">
                 <a href="/logout" class="btn">Logout</a>
             </div>
-            </div>
-        </header>
         </div>
-        <div class="container">
-            <div class=" row justify-content-center">
-                <div class="col-sm-8">
+    </header>
+    
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-8">
+                <div class="dashboard-card animate-fade-in-up">
                     <h2>Dashboard</h2>
-                    <p class="user-data"><b>Name: </b> {{user.name }}</p>
-                    <p class="user-data"><b>Email: </b> {{user.email }}</p>
+                    <div class="user-data delay-1">
+                        <p><b>Name: </b> {{user.name }}</p>
+                    </div>
+                    <div class="user-data delay-2">
+                        <p><b>Email: </b> {{user.email }}</p>
+                    </div>
                 </div>
             </div>
         </div>
         
-        <div class="teacher">
-            <a href="teacher.html">Expert Teachers</a>
+        <div class="action-buttons">
+            <a href="teacher.html" class="action-btn animate-fade-in-up delay-1">
+                <i class="fas fa-chalkboard-teacher"></i> Expert Teachers
+            </a>
+            <a href="info" class="action-btn animate-fade-in-up delay-2">
+                <i class="fas fa-user-edit"></i> Create your Profile
+            </a>
         </div>
+    </div>
 </body>
 </html>
